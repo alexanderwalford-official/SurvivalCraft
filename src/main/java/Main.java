@@ -1,6 +1,8 @@
+import java.io.IOException;
+
 public class Main {
 
-    static public void main (String args[]) {
+    static public void main (String args[]) throws IOException {
         System.out.println("");
         System.out.println("==== Survival Craft ====");
         System.out.println("Alexander Walford 2021");

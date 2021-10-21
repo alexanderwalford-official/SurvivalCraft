@@ -7,6 +7,7 @@ public class Texture {
     public int[] pixels;
     private String loc;
     public final int SIZE;
+    public int counter = 0;
 
     public Texture(String location, int size) {
         loc = location;
@@ -16,6 +17,8 @@ public class Texture {
     }
 
     private void load() {
+        counter++;
+        System.out.println("Trying to load texture " + counter);
         try {
             BufferedImage image = ImageIO.read(new File(loc));
             int w = image.getWidth();
@@ -26,8 +29,11 @@ public class Texture {
         }
     }
 
-    public static Texture wood = new Texture("resources/log.png", 32);
-    public static Texture brick = new Texture("resources/stone.png", 32);
-    public static Texture bluestone = new Texture("resources/grass.png", 32);
-    public static Texture stone = new Texture("resources/dirt.png", 32);
+    public static Texture log = new Texture("src/main/src/log.jpg", 64);
+    public static Texture stone = new Texture("src/main/src/stone.jpg", 64);
+    public static Texture cobblestone = new Texture("src/main/src/cobblestone.jpg", 64);
+    public static Texture dirt = new Texture("src/main/src/dirt.jpg", 64);
+    public static Texture grass = new Texture("src/main/src/grass.jpg", 64);
+    public static Texture leaves = new Texture("src/main/src/leaves.jpg", 64);
+    public static Texture water = new Texture("src/main/src/water.jpg", 64);
 }
