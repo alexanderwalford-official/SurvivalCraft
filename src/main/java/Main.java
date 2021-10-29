@@ -8,7 +8,6 @@ public class Main {
         System.out.println("Alexander Walford 2021");
         System.out.println("");
         System.out.println("Calling main game class..");
-        Game.main();
+        MainMenu.main();
     }
-
 }
