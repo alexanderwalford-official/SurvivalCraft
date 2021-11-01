@@ -1,7 +1,12 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MainMenu {
+
+    // Alexander Walford 2021
+
     static void main () {
         update();
         JFrame frame = new JFrame("FrameDemo");
@@ -14,7 +19,7 @@ public class MainMenu {
         frame.setResizable(false);
         frame.setLocationRelativeTo(null); // window center screen
 
-        // adding elements to the JFrame
+        // Adding elements to the JFrame
 
         // top spacing
         JPanel panel = new JPanel();
@@ -36,6 +41,17 @@ public class MainMenu {
         singleplayer.setPreferredSize(new Dimension(200, 100));
         singleplayer.setFocusPainted(false);
         singleplayer.setContentAreaFilled(false);
+
+        singleplayer.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                // button pressed
+                startsingleplayer();
+                //frame.hide();
+            }
+        });
+
         panel3.add(singleplayer);
 
         JButton multiplayer = new JButton("Multi Player");
@@ -87,6 +103,12 @@ public class MainMenu {
     public static void update () {
         // called once per frame
 
+    }
+
+    // start a single player session
+    public static void startsingleplayer () {
+        PlayerInput.main();
+        RenderSinglePlayerMap.main();
     }
 
 }
