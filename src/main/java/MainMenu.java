@@ -1,19 +1,20 @@
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.jar.JarInputStream;
+import java.util.Random;
 
 public class MainMenu {
 
     // Alexander Walford 2021
 
     static void main () {
-        update();
-        JFrame frame = new JFrame("FrameDemo");
+        JFrame frame = new JFrame("Survival Craft"); // create the JFrame
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setSize(1280, 720); // set the width and height of the window
-        frame.setTitle("Survival Craft"); // set the window title
         frame.setIconImage(new ImageIcon("src/main/src/graphics/player.jpg").getImage()); // set the window icon
         frame.setBackground(Color.white);
         frame.setResizable(false);
@@ -37,7 +38,7 @@ public class MainMenu {
         panel3.add(gamelogo);
 
         // buttons
-        JButton singleplayer = new JButton("Single Player");
+        JButton singleplayer = new JButton("Singleplayer");
         singleplayer.setPreferredSize(new Dimension(200, 100));
         singleplayer.setFocusPainted(false);
         singleplayer.setContentAreaFilled(false);
@@ -48,13 +49,13 @@ public class MainMenu {
             {
                 // button pressed
                 startsingleplayer();
-                //frame.hide();
+                frame.setVisible(false);
             }
         });
 
         panel3.add(singleplayer);
 
-        JButton multiplayer = new JButton("Multi Player");
+        JButton multiplayer = new JButton("Multiplayer");
         multiplayer.setPreferredSize(new Dimension(200, 100));
         multiplayer.setFocusPainted(false);
         multiplayer.setContentAreaFilled(false);
@@ -71,6 +72,20 @@ public class MainMenu {
         settings.setFocusPainted(false);
         settings.setContentAreaFilled(false);
         panel3.add(settings);
+
+        Random rand = new Random();
+        int n = rand.nextInt(999);
+
+        // player name box
+        JLabel usernametitle = new JLabel("Your Username: ");
+        usernametitle.setBorder(new EmptyBorder(50,0,0,0));
+        usernametitle.setFont(new Font("Srif", Font.PLAIN, 18));
+        JTextArea usernamebox = new JTextArea("RandomPlayer" + n);
+        usernamebox.setBorder(new EmptyBorder(50,0,0,0));
+        usernamebox.setFont(new Font("Srif", Font.PLAIN, 18));
+        usernamebox.setForeground(Color.gray);
+        panel3.add(usernametitle);
+        panel3.add(usernamebox);
 
         frame.add(panel3, BorderLayout.CENTER);
 
@@ -97,12 +112,6 @@ public class MainMenu {
         // start the background music from the AudioEngine
         AudioEngine audio = new AudioEngine();
         audio.HandleBackgroundMusic();
-    }
-
-    // probably not going to implement in main menu
-    public static void update () {
-        // called once per frame
-
     }
 
     // start a single player session
