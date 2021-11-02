@@ -11,6 +11,8 @@ public class RenderSinglePlayerMap {
     static int maxtiles = 256;
     static int xtilecounter = 0;
     static int ytilecounter = 0;
+    static int playerheight = 80;
+    static int playerwidth = 80;
 
     static public void main () {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -22,8 +24,10 @@ public class RenderSinglePlayerMap {
         JLayeredPane playerpanel = new JLayeredPane();
         playerpanel.setBounds(0,0, frame.getWidth(), frame.getHeight());
         playerpanel.add(player, JLayeredPane.POPUP_LAYER);
-        // set the height and width of the player to 80 and set the player's position to the centre of the map
-        player.setBounds(frame.getWidth()/2-40,frame.getHeight()/2-40,80,80);
+
+        // set the height and width of the player to the declared variables and set the player's position to the centre of the map
+        player.setBounds(frame.getWidth()/2-playerwidth/2,frame.getHeight()/2-playerheight/2, playerwidth, playerheight);
+
         frame.add(playerpanel);
         frame.setVisible(true);
         System.out.println("Generating map..");
