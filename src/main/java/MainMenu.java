@@ -15,7 +15,7 @@ public class MainMenu {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setSize(1280, 720); // set the width and height of the window
-        frame.setIconImage(new ImageIcon("src/main/src/graphics/player.jpg").getImage()); // set the window icon
+        frame.setIconImage(new ImageIcon("src/main/resources/graphics/player.jpg").getImage()); // set the window icon
         frame.setBackground(Color.white);
         frame.setResizable(false);
         frame.setLocationRelativeTo(null); // window center screen
@@ -33,7 +33,7 @@ public class MainMenu {
         panel3.setBackground(Color.white);
 
         // game logo
-        JLabel gamelogo = new JLabel(new ImageIcon("src/main/src/graphics/gamelogo-long.jpg"));
+        JLabel gamelogo = new JLabel(new ImageIcon("src/main/resources/graphics/gamelogo-long.jpg"));
         gamelogo.setPreferredSize(new Dimension(1280,150));
         panel3.add(gamelogo);
 

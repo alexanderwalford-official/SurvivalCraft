@@ -70,6 +70,6 @@ public class AudioEngine {
 
     public void HandleBackgroundMusic () {
         // implement soundtrack / playlist functionality?
-        playSound("src/main/src/audio/04.wav");
+        playSound("src/main/resources/audio/04.wav");
     }
 }

@@ -8,6 +8,7 @@ public class PlayerInput {
     private static volatile boolean aPressed = false;
     private static volatile boolean sPressed = false;
     private static volatile boolean dPressed = false;
+    public static int movespeed = 4;
 
     public static boolean isWPressed() {
         synchronized (PlayerInput.class) {
@@ -43,18 +44,22 @@ public class PlayerInput {
                             // W
                             if (ke.getKeyCode() == KeyEvent.VK_W) {
                                 wPressed = true;
+                                RenderSinglePlayerMap.player.setLocation(RenderSinglePlayerMap.player.getLocation().x,RenderSinglePlayerMap.player.getLocation().y-movespeed);
                             }
                             // A
                             else if (ke.getKeyCode() == KeyEvent.VK_A) {
                                 aPressed = true;
+                                RenderSinglePlayerMap.player.setLocation(RenderSinglePlayerMap.player.getLocation().x-movespeed,RenderSinglePlayerMap.player.getLocation().y);
                             }
                             // S
                             else if (ke.getKeyCode() == KeyEvent.VK_S) {
                                 sPressed = true;
+                                RenderSinglePlayerMap.player.setLocation(RenderSinglePlayerMap.player.getLocation().x,RenderSinglePlayerMap.player.getLocation().y+movespeed);
                             }
                             // D
                             else if (ke.getKeyCode() == KeyEvent.VK_D) {
                                 dPressed = true;
+                                RenderSinglePlayerMap.player.setLocation(RenderSinglePlayerMap.player.getLocation().x+movespeed,RenderSinglePlayerMap.player.getLocation().y);
                             }
                             break;
 
