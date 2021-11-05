@@ -59,6 +59,17 @@ public class MainMenu {
         multiplayer.setPreferredSize(new Dimension(200, 100));
         multiplayer.setFocusPainted(false);
         multiplayer.setContentAreaFilled(false);
+
+        multiplayer.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                // button pressed
+                startmultiplayer();
+                frame.setVisible(false);
+            }
+        });
+
         panel3.add(multiplayer);
 
         JButton leaderboard = new JButton("Leader Board");
@@ -116,8 +127,16 @@ public class MainMenu {
 
     // start a single player session
     public static void startsingleplayer () {
+        System.out.println("Single player button pressed..");
         PlayerInput.main();
         RenderSinglePlayerMap.main();
+    }
+
+    // send the player to the multiplayer screen
+    public static void startmultiplayer () {
+        System.out.println("Multi player button pressed..");
+        PlayerInput.main();
+        MultiplayerJoinScreen.main();
     }
 
 }
