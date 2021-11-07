@@ -29,7 +29,7 @@ public class RenderSinglePlayerMap {
         frame.setBackground(Color.blue);
         maxrows = frame.getHeight() / 50 * multiplier;
         maxcolumns = frame.getWidth() / 50 * multiplier;
-        frame.setIconImage(new ImageIcon("src/main/resources/graphics/player.jpg").getImage()); // set the window icon
+        frame.setIconImage(new ImageIcon("src/main/resources/graphics/player.png").getImage()); // set the window icon
         frame.setResizable(false);
         frame.setLocationRelativeTo(null); // window center screen
         mainpane.setBounds(0, 0, frame.getWidth(), frame.getHeight());
@@ -96,7 +96,7 @@ public class RenderSinglePlayerMap {
         // planned: add weight to each texture to determine how likely they are to spawn
 
         Random rand = new Random();
-        int n = rand.nextInt(7); // random number between 0 and 7
+        int n = rand.nextInt(8); // random number between 0 and 7
         String texturesel = "";
         if (n == 1) {
             texturesel = "dirt.jpg";
@@ -137,7 +137,12 @@ public class RenderSinglePlayerMap {
         }
     }
 
-    public static void DrawGUI () {
+    static void DrawMapObjects() {
+        // here we will render random objects into the map with triggers
+
+    }
+
+    static void DrawGUI() {
         // here we can render our GUI
         JLabel healthtext = new JLabel("100/100 HP");
         healthtext.setBounds(20,10,200,50);

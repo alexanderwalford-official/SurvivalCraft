@@ -8,7 +8,7 @@ public class CrashHandler {
         frame.setSize(300, 500);
         frame.setLocationRelativeTo(null); // window center screen
         frame.setResizable(false);
-        frame.setIconImage(new ImageIcon("src/main/resources/graphics/player.jpg").getImage()); // set the window icon
+        frame.setIconImage(new ImageIcon("src/main/resources/graphics/player.png").getImage()); // set the window icon
         JLabel title = new JLabel("An error was detected and caused the game to crash. To see what happened please read the error below: ");
         JLabel errortext = new JLabel(exception);
         errortext.setFont(new Font("Srif", Font.PLAIN, 12));
