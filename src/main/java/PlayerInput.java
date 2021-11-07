@@ -64,6 +64,10 @@ public class PlayerInput {
                                 RenderSinglePlayerMap.player.setLocation(RenderSinglePlayerMap.player.getLocation().x+movespeed,RenderSinglePlayerMap.player.getLocation().y);
                                 RenderSinglePlayerMap.player.setIcon(new ImageIcon("src/main/resources/graphics/player/player_right.png"));
                             }
+                            else if (ke.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                                RenderSinglePlayerMap.frame.dispose();
+                                MainMenu.main();
+                            }
                             break;
 
                         case KeyEvent.KEY_RELEASED:

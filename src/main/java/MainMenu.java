@@ -9,6 +9,7 @@ import java.util.Random;
 public class MainMenu {
 
     // Alexander Walford 2021
+    static JTextArea usernamebox = new JTextArea("RandomPlayer");
 
     static void main () {
         JFrame frame = new JFrame("Survival Craft"); // create the JFrame
@@ -49,7 +50,7 @@ public class MainMenu {
             {
                 // button pressed
                 startsingleplayer();
-                frame.setVisible(false);
+                frame.dispose();
             }
         });
 
@@ -66,7 +67,7 @@ public class MainMenu {
             {
                 // button pressed
                 startmultiplayer();
-                frame.setVisible(false);
+                frame.dispose();
             }
         });
 
@@ -91,7 +92,7 @@ public class MainMenu {
         JLabel usernametitle = new JLabel("Your Username: ");
         usernametitle.setBorder(new EmptyBorder(50,0,0,0));
         usernametitle.setFont(new Font("Srif", Font.PLAIN, 18));
-        JTextArea usernamebox = new JTextArea("RandomPlayer" + n);
+        usernamebox.setText("RandomPlayer" + n);
         usernamebox.setBorder(new EmptyBorder(50,0,0,0));
         usernamebox.setFont(new Font("Srif", Font.PLAIN, 18));
         usernamebox.setForeground(Color.gray);
@@ -128,7 +129,7 @@ public class MainMenu {
     public static void startsingleplayer () {
         System.out.println("Single player button pressed..");
         PlayerInput.main();
-        RenderSinglePlayerMap.main();
+        RenderSinglePlayerMap.main(usernamebox.getText());
     }
 
     // send the player to the multiplayer screen

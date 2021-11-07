@@ -11,13 +11,16 @@ public class RenderSinglePlayerMap {
     static JLayeredPane mainpane = new JLayeredPane();
     static int playerheight = 100;
     static int playerwidth = 50;
+    static JLabel healthtext = new JLabel("100/100 HP");
+    static JLabel playerid = new JLabel("PLAYER_ID");
+    static JLabel scoretext = new JLabel("0 PTS");
+    static JLabel timertext = new JLabel("0:0:0");
 
-    static String[] texturelist = {"dirt","stone","cobblestone","water","leaves","log","grass"};
-    // remember: the larger the number, the more likely it is to be selected
-    static int[] textureweights = {4,3,2,4,1,1,5};
+    // if you want a texture to appear more frequently, just add it to the array more times
+    static String[] texturelist = {"dirt","dirt","grass","grass","grass","grass","grass","grass","grass","grass","grass","stone","stone","stone","stone","stone","cobblestone","water","water","water","leaves","leaves","leaves","log"};
 
     static int cloudcounter = 0;
-    static int maxcloudamount = 10; // set the max no. of clouds
+    static int maxcloudamount = 20; // set the max no. of clouds
 
     static int multiplier = 50;
     static int x = -multiplier;
@@ -26,7 +29,7 @@ public class RenderSinglePlayerMap {
     static int maxrows;
     static int maxcolumns;
 
-    static public void main() {
+    static public void main(String playerid) {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setSize(1280, 720); // set the width and height of the window
@@ -44,19 +47,22 @@ public class RenderSinglePlayerMap {
 
         generatemap();
         GenerateClouds();
-        DrawGUI();
+        DrawGUI(playerid);
         frame.add(mainpane);
         frame.setVisible(true);
-        //update();
+        update();
     }
 
     static void update() {
         // called once per frame
         // make asynchronous
         try {
-            // update every 50 milliseconds
-            Thread.sleep(50);
-            update();
+            // update every 100 milliseconds
+            Thread.sleep(100);
+            Thread renewthread = new Thread(() -> {
+                update();
+            });
+            renewthread.start();
         } catch (Exception e) {
             CrashHandler.main(e.getMessage());
         }
@@ -86,7 +92,7 @@ public class RenderSinglePlayerMap {
     static void generatemap() {
 
         Random rand = new Random();
-        int n = rand.nextInt(7); // random number between 0 and 7
+        int n = rand.nextInt(texturelist.length); // random number between 0 and 7
         String texturesel = texturelist[n];
         // implement the use if the texture weight array
         JLabel tile = new JLabel(new ImageIcon("src/main/resources/graphics/" + texturesel + ".png")); // set the texture
@@ -115,13 +121,40 @@ public class RenderSinglePlayerMap {
 
     }
 
-    static void DrawGUI() {
+    static void DrawGUI(String splayerid) {
         // here we can render our GUI
+
+        // player hp
+        healthtext.setBounds(20,10,200,50);
+        healthtext.setForeground(Color.white);
+        healthtext.setFont(new Font("Srif", Font.PLAIN, 18));
+        mainpane.add(healthtext, JLayeredPane.DRAG_LAYER);
+
+        // player ID
+        playerid.setText(splayerid);
+        playerid.setBounds(frame.getWidth() - 180,10,200,50);
+        playerid.setForeground(Color.white);
+        playerid.setFont(new Font("Srif", Font.PLAIN, 18));
+        mainpane.add(playerid, JLayeredPane.DRAG_LAYER);
+
+        // score
+        scoretext.setBounds(frame.getWidth() / 2 - 80,10,200,50);
+        scoretext.setForeground(Color.white);
+        scoretext.setFont(new Font("Srif", Font.PLAIN, 18));
+        mainpane.add(scoretext, JLayeredPane.DRAG_LAYER);
+
+        // timer text
+        timertext.setBounds(frame.getWidth() / 2 + 80,10,200,50);
+        timertext.setForeground(Color.white);
+        timertext.setFont(new Font("Srif", Font.PLAIN, 18));
+        mainpane.add(timertext, JLayeredPane.DRAG_LAYER);
+
         JLabel healthtext = new JLabel("100/100 HP");
         healthtext.setBounds(20,10,200,50);
         healthtext.setForeground(Color.white);
         healthtext.setFont(new Font("Srif", Font.PLAIN, 18));
         mainpane.add(healthtext, JLayeredPane.DRAG_LAYER);
+
         JLabel topGUIbg = new JLabel(new ImageIcon("src/main/resources/graphics/topbarGUI.png")); // top bar
         topGUIbg.setBounds(0,0,frame.getWidth(),70);
         mainpane.add(topGUIbg, JLayeredPane.DRAG_LAYER);
