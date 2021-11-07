@@ -3,6 +3,9 @@ import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
 
 public class MultiplayerInput {
+
+    // modify script to work with multiplayer API
+
     private static volatile boolean wPressed = false;
     private static volatile boolean aPressed = false;
     private static volatile boolean sPressed = false;

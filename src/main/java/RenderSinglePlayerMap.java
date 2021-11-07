@@ -7,10 +7,13 @@ import java.util.Random;
 public class RenderSinglePlayerMap {
 
     static JFrame frame = new JFrame("Survival Craft - Singleplayer"); // create the JFrame
-    static JLabel player = new JLabel(new ImageIcon("src/main/resources/graphics/player.jpg")); // player object
-    static JLayeredPane backgroundpanel = new JLayeredPane();
-    static int playerheight = 80;
-    static int playerwidth = 80;
+    static JLabel player = new JLabel(new ImageIcon("src/main/resources/graphics/player.png")); // player object
+    static JLayeredPane mainpane = new JLayeredPane();
+    static int playerheight = 100;
+    static int playerwidth = 50;
+
+    static int cloudcounter = 0;
+    static int maxcloudamount = 10; // set the max no. of clouds
 
     static int multiplier = 50;
     static int x = -multiplier;
@@ -20,26 +23,26 @@ public class RenderSinglePlayerMap {
     static int maxcolumns;
 
     static public void main() {
-        //DrawGUI();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setSize(1280, 720); // set the width and height of the window
+        frame.setBackground(Color.blue);
         maxrows = frame.getHeight() / 50 * multiplier;
         maxcolumns = frame.getWidth() / 50 * multiplier;
         frame.setIconImage(new ImageIcon("src/main/resources/graphics/player.jpg").getImage()); // set the window icon
         frame.setResizable(false);
         frame.setLocationRelativeTo(null); // window center screen
-        JLayeredPane playerpanel = new JLayeredPane();
-        playerpanel.setBounds(0, 0, frame.getWidth(), frame.getHeight());
-        playerpanel.add(player, JLayeredPane.POPUP_LAYER);
+        mainpane.setBounds(0, 0, frame.getWidth(), frame.getHeight());
+        mainpane.add(player, JLayeredPane.MODAL_LAYER);
 
         // set the height and width of the player to the declared variables and set the player's position to the centre of the map
         player.setBounds(frame.getWidth() / 2 - playerwidth / 2, frame.getHeight() / 2 - playerheight / 2, playerwidth, playerheight);
 
-        frame.add(playerpanel);
-        frame.setVisible(true);
-        System.out.println("Generating map..");
         generatemap();
+        GenerateClouds();
+        DrawGUI();
+        frame.add(mainpane);
+        frame.setVisible(true);
         //update();
     }
 
@@ -55,36 +58,69 @@ public class RenderSinglePlayerMap {
         }
     }
 
+    static void GenerateClouds() {
+        if (cloudcounter < maxcloudamount) {
+            Random rand = new Random();
+            int n = rand.nextInt(5); // random number between 0 and 5
+            String texturesel = "";
+            if (n == 1) {
+                texturesel = "cloud1";
+            } else if (n == 2) {
+                texturesel = "cloud2";
+            } else if (n == 3) {
+                texturesel = "cloud3";
+            } else if (n == 4) {
+                texturesel = "cloud4";
+            } else {
+                texturesel = "cloud5";
+            }
+
+            JLabel tile = new JLabel(new ImageIcon("src/main/resources/graphics/clouds/" + texturesel + ".png")); // set the texture
+            int cw = rand.nextInt(frame.getWidth());
+            int ch = rand.nextInt(frame.getHeight());
+
+            tile.setBounds(cw,ch,200,100);
+            // now we need to randomise the locations of the clouds
+            mainpane.add(tile, JLayeredPane.POPUP_LAYER);
+
+            cloudcounter++;
+            GenerateClouds();
+        }
+        else {
+            System.out.println("Cloud generation completed!");
+        }
+    }
+
     static void generatemap() {
+
+        // planned: add weight to each texture to determine how likely they are to spawn
 
         Random rand = new Random();
         int n = rand.nextInt(7); // random number between 0 and 7
         String texturesel = "";
         if (n == 1) {
-            texturesel = "dirt";
+            texturesel = "dirt.jpg";
         } else if (n == 2) {
-            texturesel = "grass";
+            texturesel = "grass.jpg";
         } else if (n == 3) {
-            texturesel = "log";
+            texturesel = "log.jpg";
         } else if (n == 4) {
-            texturesel = "leaves";
+            texturesel = "leaves.jpg";
         } else if (n == 5) {
-            texturesel = "water";
+            texturesel = "water.png";
         } else if (n == 6) {
-            texturesel = "stone";
+            texturesel = "stone.jpg";
         } else if (n == 7) {
-            texturesel = "cobblestone";
+            texturesel = "cobblestone.jpg";
         } else {
-            texturesel = "stone";
+            texturesel = "stone.jpg";
         }
 
-        JLabel tile = new JLabel(new ImageIcon("src/main/resources/graphics/" + texturesel + ".jpg")); // set the texture
+        JLabel tile = new JLabel(new ImageIcon("src/main/resources/graphics/" + texturesel)); // set the texture
 
         if (x == maxcolumns) {
             // end the generation
             System.out.println("Map generated!");
-            backgroundpanel.setBounds(0, 0, frame.getWidth(), frame.getHeight());
-            frame.add(backgroundpanel);
         }
         else {
             // keep generating
@@ -94,7 +130,7 @@ public class RenderSinglePlayerMap {
             }
             else {
                 tile.setBounds(x, y, 100, 100);
-                backgroundpanel.add(tile, JLayeredPane.DEFAULT_LAYER);
+                mainpane.add(tile, JLayeredPane.DEFAULT_LAYER);
                 y = y + multiplier;
             }
             generatemap();
@@ -103,14 +139,14 @@ public class RenderSinglePlayerMap {
 
     public static void DrawGUI () {
         // here we can render our GUI
-        JPanel GUI = new JPanel();
-        GUI.setBounds(0, 0, frame.getWidth(), frame.getHeight());
-        JLabel topGUIbg = new JLabel(new ImageIcon("src/main/resources/graphics/topbarGUI.jpg")); // top bar
-        System.out.println(frame.getWidth());
-        topGUIbg.setPreferredSize(new Dimension(10000,40));
-        GUI.setBackground(Color.black);
-        GUI.add(topGUIbg, JLayeredPane.POPUP_LAYER);
-        frame.add(GUI);
+        JLabel healthtext = new JLabel("100/100 HP");
+        healthtext.setBounds(20,10,200,50);
+        healthtext.setForeground(Color.white);
+        healthtext.setFont(new Font("Srif", Font.PLAIN, 18));
+        mainpane.add(healthtext, JLayeredPane.DRAG_LAYER);
+        JLabel topGUIbg = new JLabel(new ImageIcon("src/main/resources/graphics/topbarGUI.png")); // top bar
+        topGUIbg.setBounds(0,0,frame.getWidth(),70);
+        mainpane.add(topGUIbg, JLayeredPane.DRAG_LAYER);
     }
 
 }

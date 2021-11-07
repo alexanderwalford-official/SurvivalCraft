@@ -42,7 +42,7 @@ public class PlayerInput {
                     switch (ke.getID()) {
                         case KeyEvent.KEY_PRESSED:
                             // W
-                            if (ke.getKeyCode() == KeyEvent.VK_W && RenderSinglePlayerMap.player.getLocation().y > 0) {
+                            if (ke.getKeyCode() == KeyEvent.VK_W && RenderSinglePlayerMap.player.getLocation().y > 75) {
                                 wPressed = true;
                                 RenderSinglePlayerMap.player.setLocation(RenderSinglePlayerMap.player.getLocation().x,RenderSinglePlayerMap.player.getLocation().y-movespeed);
                             }

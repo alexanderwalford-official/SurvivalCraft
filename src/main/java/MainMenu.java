@@ -35,7 +35,7 @@ public class MainMenu {
         // game logo
         JLabel gamelogo = new JLabel(new ImageIcon("src/main/resources/graphics/gamelogo-long.jpg"));
         gamelogo.setPreferredSize(new Dimension(1280,150));
-        panel3.add(gamelogo);
+        panel3.add(gamelogo, JLayeredPane.POPUP_LAYER);
 
         // buttons
         JButton singleplayer = new JButton("Singleplayer");
@@ -53,7 +53,7 @@ public class MainMenu {
             }
         });
 
-        panel3.add(singleplayer);
+        panel3.add(singleplayer, JLayeredPane.POPUP_LAYER);
 
         JButton multiplayer = new JButton("Multiplayer");
         multiplayer.setPreferredSize(new Dimension(200, 100));
@@ -70,19 +70,19 @@ public class MainMenu {
             }
         });
 
-        panel3.add(multiplayer);
+        panel3.add(multiplayer, JLayeredPane.POPUP_LAYER);
 
         JButton leaderboard = new JButton("Leader Board");
         leaderboard.setPreferredSize(new Dimension(200, 100));
         leaderboard.setFocusPainted(false);
         leaderboard.setContentAreaFilled(false);
-        panel3.add(leaderboard);
+        panel3.add(leaderboard, JLayeredPane.POPUP_LAYER);
 
         JButton settings = new JButton("Game Settings");
         settings.setPreferredSize(new Dimension(200, 100));
         settings.setFocusPainted(false);
         settings.setContentAreaFilled(false);
-        panel3.add(settings);
+        panel3.add(settings, JLayeredPane.POPUP_LAYER);
 
         Random rand = new Random();
         int n = rand.nextInt(999);
@@ -95,9 +95,8 @@ public class MainMenu {
         usernamebox.setBorder(new EmptyBorder(50,0,0,0));
         usernamebox.setFont(new Font("Srif", Font.PLAIN, 18));
         usernamebox.setForeground(Color.gray);
-        panel3.add(usernametitle);
-        panel3.add(usernamebox);
-
+        panel3.add(usernametitle, JLayeredPane.POPUP_LAYER);
+        panel3.add(usernamebox, JLayeredPane.POPUP_LAYER);
         frame.add(panel3, BorderLayout.CENTER);
 
         JPanel panel4 = new JPanel();
