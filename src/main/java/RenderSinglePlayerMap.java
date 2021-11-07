@@ -7,10 +7,14 @@ import java.util.Random;
 public class RenderSinglePlayerMap {
 
     static JFrame frame = new JFrame("Survival Craft - Singleplayer"); // create the JFrame
-    static JLabel player = new JLabel(new ImageIcon("src/main/resources/graphics/player.png")); // player object
+    static JLabel player = new JLabel(new ImageIcon("src/main/resources/graphics/player/player_right.png")); // player object
     static JLayeredPane mainpane = new JLayeredPane();
     static int playerheight = 100;
     static int playerwidth = 50;
+
+    static String[] texturelist = {"dirt","stone","cobblestone","water","leaves","log","grass"};
+    // remember: the larger the number, the more likely it is to be selected
+    static int[] textureweights = {4,3,2,4,1,1,5};
 
     static int cloudcounter = 0;
     static int maxcloudamount = 10; // set the max no. of clouds
@@ -29,7 +33,7 @@ public class RenderSinglePlayerMap {
         frame.setBackground(Color.blue);
         maxrows = frame.getHeight() / 50 * multiplier;
         maxcolumns = frame.getWidth() / 50 * multiplier;
-        frame.setIconImage(new ImageIcon("src/main/resources/graphics/player.png").getImage()); // set the window icon
+        frame.setIconImage(new ImageIcon("src/main/resources/graphics/gamelogo_square.png").getImage()); // set the window icon
         frame.setResizable(false);
         frame.setLocationRelativeTo(null); // window center screen
         mainpane.setBounds(0, 0, frame.getWidth(), frame.getHeight());
@@ -62,19 +66,7 @@ public class RenderSinglePlayerMap {
         if (cloudcounter < maxcloudamount) {
             Random rand = new Random();
             int n = rand.nextInt(5); // random number between 0 and 5
-            String texturesel = "";
-            if (n == 1) {
-                texturesel = "cloud1";
-            } else if (n == 2) {
-                texturesel = "cloud2";
-            } else if (n == 3) {
-                texturesel = "cloud3";
-            } else if (n == 4) {
-                texturesel = "cloud4";
-            } else {
-                texturesel = "cloud5";
-            }
-
+            String texturesel = "cloud" + n;
             JLabel tile = new JLabel(new ImageIcon("src/main/resources/graphics/clouds/" + texturesel + ".png")); // set the texture
             int cw = rand.nextInt(frame.getWidth());
             int ch = rand.nextInt(frame.getHeight());
@@ -93,30 +85,11 @@ public class RenderSinglePlayerMap {
 
     static void generatemap() {
 
-        // planned: add weight to each texture to determine how likely they are to spawn
-
         Random rand = new Random();
-        int n = rand.nextInt(8); // random number between 0 and 7
-        String texturesel = "";
-        if (n == 1) {
-            texturesel = "dirt.jpg";
-        } else if (n == 2) {
-            texturesel = "grass.jpg";
-        } else if (n == 3) {
-            texturesel = "log.jpg";
-        } else if (n == 4) {
-            texturesel = "leaves.jpg";
-        } else if (n == 5) {
-            texturesel = "water.png";
-        } else if (n == 6) {
-            texturesel = "stone.jpg";
-        } else if (n == 7) {
-            texturesel = "cobblestone.jpg";
-        } else {
-            texturesel = "stone.jpg";
-        }
-
-        JLabel tile = new JLabel(new ImageIcon("src/main/resources/graphics/" + texturesel)); // set the texture
+        int n = rand.nextInt(7); // random number between 0 and 7
+        String texturesel = texturelist[n];
+        // implement the use if the texture weight array
+        JLabel tile = new JLabel(new ImageIcon("src/main/resources/graphics/" + texturesel + ".png")); // set the texture
 
         if (x == maxcolumns) {
             // end the generation

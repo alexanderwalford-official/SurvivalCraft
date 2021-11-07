@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.awt.KeyEventDispatcher;
 import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
@@ -50,6 +51,7 @@ public class PlayerInput {
                             else if (ke.getKeyCode() == KeyEvent.VK_A && RenderSinglePlayerMap.player.getLocation().x > 0) {
                                 aPressed = true;
                                 RenderSinglePlayerMap.player.setLocation(RenderSinglePlayerMap.player.getLocation().x-movespeed,RenderSinglePlayerMap.player.getLocation().y);
+                                RenderSinglePlayerMap.player.setIcon(new ImageIcon("src/main/resources/graphics/player/player_left.png"));
                             }
                             // S
                             else if (ke.getKeyCode() == KeyEvent.VK_S && RenderSinglePlayerMap.player.getLocation().y < RenderSinglePlayerMap.frame.getHeight() - RenderSinglePlayerMap.playerheight * 1.5) { // stops the player object from going out of bounds
@@ -60,6 +62,7 @@ public class PlayerInput {
                             else if (ke.getKeyCode() == KeyEvent.VK_D && RenderSinglePlayerMap.player.getLocation().x < RenderSinglePlayerMap.frame.getWidth() - RenderSinglePlayerMap.playerwidth * 1.5) {
                                 dPressed = true;
                                 RenderSinglePlayerMap.player.setLocation(RenderSinglePlayerMap.player.getLocation().x+movespeed,RenderSinglePlayerMap.player.getLocation().y);
+                                RenderSinglePlayerMap.player.setIcon(new ImageIcon("src/main/resources/graphics/player/player_right.png"));
                             }
                             break;
 
