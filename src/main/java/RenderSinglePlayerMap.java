@@ -1,5 +1,4 @@
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.Random;
 
@@ -9,12 +8,14 @@ public class RenderSinglePlayerMap {
     static JFrame frame = new JFrame("Survival Craft - Singleplayer"); // create the JFrame
     static JLabel player = new JLabel(new ImageIcon("src/main/resources/graphics/player/player_right.png")); // player object
     static JLayeredPane mainpane = new JLayeredPane();
-    static int playerheight = 100;
-    static int playerwidth = 50;
+    static int playerheight = 122;
+    static int playerwidth = 40;
+    static int timeleft = 300; // in seconds, states how long the game will last
+    static  int playerhealth = 100; // player health
     static JLabel healthtext = new JLabel("100/100 HP");
     static JLabel playerid = new JLabel("PLAYER_ID");
     static JLabel scoretext = new JLabel("0 PTS");
-    static JLabel timertext = new JLabel("0:0:0");
+    static JLabel timertext = new JLabel();
 
     // if you want a texture to appear more frequently, just add it to the array more times
     static String[] texturelist = {"dirt","dirt","grass","grass","grass","grass","grass","grass","grass","grass","grass","stone","stone","stone","stone","stone","cobblestone","water","water","water","leaves","leaves","leaves","log"};
@@ -36,7 +37,7 @@ public class RenderSinglePlayerMap {
         frame.setBackground(Color.blue);
         maxrows = frame.getHeight() / 50 * multiplier;
         maxcolumns = frame.getWidth() / 50 * multiplier;
-        frame.setIconImage(new ImageIcon("src/main/resources/graphics/gamelogo_square.png").getImage()); // set the window icon
+        frame.setIconImage(new ImageIcon("src/main/resources/graphics/GUI/gamelogo_square.png").getImage()); // set the window icon
         frame.setResizable(false);
         frame.setLocationRelativeTo(null); // window center screen
         mainpane.setBounds(0, 0, frame.getWidth(), frame.getHeight());
@@ -51,6 +52,7 @@ public class RenderSinglePlayerMap {
         frame.add(mainpane);
         frame.setVisible(true);
         update();
+        timer();
     }
 
     static void update() {
@@ -60,6 +62,12 @@ public class RenderSinglePlayerMap {
             // update every 100 milliseconds
             Thread.sleep(100);
             Thread renewthread = new Thread(() -> {
+                try {
+                    Thread.sleep(1000);
+                    Animations.playeridle();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 update();
             });
             renewthread.start();
@@ -68,18 +76,38 @@ public class RenderSinglePlayerMap {
         }
     }
 
+    static void timer () {
+        try {
+            // update every 100 milliseconds
+            Thread renewthread = new Thread(() -> {
+                try {
+                    Thread.sleep(1000);
+                    timeleft--;
+                    timertext.setText(timeleft + " sec");
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                timer();
+            });
+            renewthread.start();
+        } catch (Exception e) {
+            CrashHandler.main(e.getMessage());
+        }
+    }
+
     static void GenerateClouds() {
+        // add cloud movement animation?
         if (cloudcounter < maxcloudamount) {
             Random rand = new Random();
             int n = rand.nextInt(5); // random number between 0 and 5
             String texturesel = "cloud" + n;
-            JLabel tile = new JLabel(new ImageIcon("src/main/resources/graphics/clouds/" + texturesel + ".png")); // set the texture
+            JLabel cloud = new JLabel();
+            cloud.setIcon(new ImageIcon("src/main/resources/graphics/clouds/" + texturesel + ".png"));
             int cw = rand.nextInt(frame.getWidth());
             int ch = rand.nextInt(frame.getHeight());
-
-            tile.setBounds(cw,ch,200,100);
+            cloud.setBounds(cw,ch,200,100);
             // now we need to randomise the locations of the clouds
-            mainpane.add(tile, JLayeredPane.POPUP_LAYER);
+            mainpane.add(cloud, JLayeredPane.POPUP_LAYER);
 
             cloudcounter++;
             GenerateClouds();
@@ -95,7 +123,7 @@ public class RenderSinglePlayerMap {
         int n = rand.nextInt(texturelist.length); // random number between 0 and 7
         String texturesel = texturelist[n];
         // implement the use if the texture weight array
-        JLabel tile = new JLabel(new ImageIcon("src/main/resources/graphics/" + texturesel + ".png")); // set the texture
+        JLabel tile = new JLabel(new ImageIcon("src/main/resources/graphics/textures/" + texturesel + ".png")); // set the texture
 
         if (x == maxcolumns) {
             // end the generation
@@ -153,9 +181,10 @@ public class RenderSinglePlayerMap {
         healthtext.setBounds(20,10,200,50);
         healthtext.setForeground(Color.white);
         healthtext.setFont(new Font("Srif", Font.PLAIN, 18));
+        healthtext.setText(playerhealth + "/100 HP");
         mainpane.add(healthtext, JLayeredPane.DRAG_LAYER);
 
-        JLabel topGUIbg = new JLabel(new ImageIcon("src/main/resources/graphics/topbarGUI.png")); // top bar
+        JLabel topGUIbg = new JLabel(new ImageIcon("src/main/resources/graphics/GUI/topbarGUI.png")); // top bar
         topGUIbg.setBounds(0,0,frame.getWidth(),70);
         mainpane.add(topGUIbg, JLayeredPane.DRAG_LAYER);
     }

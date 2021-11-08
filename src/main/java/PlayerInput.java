@@ -11,6 +11,7 @@ public class PlayerInput {
     private static volatile boolean dPressed = false;
     public static int movespeed = 4;
 
+
     public static boolean isWPressed() {
         synchronized (PlayerInput.class) {
             return wPressed;
@@ -35,6 +36,7 @@ public class PlayerInput {
         }
     }
 
+
     public static void main() {
         KeyboardFocusManager.getCurrentKeyboardFocusManager().addKeyEventDispatcher(new KeyEventDispatcher() {
             @Override
@@ -46,23 +48,25 @@ public class PlayerInput {
                             if (ke.getKeyCode() == KeyEvent.VK_W && RenderSinglePlayerMap.player.getLocation().y > 75) {
                                 wPressed = true;
                                 RenderSinglePlayerMap.player.setLocation(RenderSinglePlayerMap.player.getLocation().x,RenderSinglePlayerMap.player.getLocation().y-movespeed);
+                                //RenderSinglePlayerMap.player.setIcon(new ImageIcon("src/main/resources/graphics/player/walk/walk_right.gif"));
                             }
                             // A
                             else if (ke.getKeyCode() == KeyEvent.VK_A && RenderSinglePlayerMap.player.getLocation().x > 0) {
                                 aPressed = true;
                                 RenderSinglePlayerMap.player.setLocation(RenderSinglePlayerMap.player.getLocation().x-movespeed,RenderSinglePlayerMap.player.getLocation().y);
-                                RenderSinglePlayerMap.player.setIcon(new ImageIcon("src/main/resources/graphics/player/player_left.png"));
+                                //RenderSinglePlayerMap.player.setIcon(new ImageIcon("src/main/resources/graphics/player/walk/walk_left.gif"));
                             }
                             // S
                             else if (ke.getKeyCode() == KeyEvent.VK_S && RenderSinglePlayerMap.player.getLocation().y < RenderSinglePlayerMap.frame.getHeight() - RenderSinglePlayerMap.playerheight * 1.5) { // stops the player object from going out of bounds
                                 sPressed = true;
                                 RenderSinglePlayerMap.player.setLocation(RenderSinglePlayerMap.player.getLocation().x,RenderSinglePlayerMap.player.getLocation().y+movespeed); // sets the position of the player object
+                                //RenderSinglePlayerMap.player.setIcon(new ImageIcon("src/main/resources/graphics/player/walk/walk_right.gif"));
                             }
                             // D
                             else if (ke.getKeyCode() == KeyEvent.VK_D && RenderSinglePlayerMap.player.getLocation().x < RenderSinglePlayerMap.frame.getWidth() - RenderSinglePlayerMap.playerwidth * 1.5) {
                                 dPressed = true;
                                 RenderSinglePlayerMap.player.setLocation(RenderSinglePlayerMap.player.getLocation().x+movespeed,RenderSinglePlayerMap.player.getLocation().y);
-                                RenderSinglePlayerMap.player.setIcon(new ImageIcon("src/main/resources/graphics/player/player_right.png"));
+                                //RenderSinglePlayerMap.player.setIcon(new ImageIcon("src/main/resources/graphics/player/walk/walk_right.gif"));
                             }
                             else if (ke.getKeyCode() == KeyEvent.VK_ESCAPE) {
                                 RenderSinglePlayerMap.frame.dispose();
