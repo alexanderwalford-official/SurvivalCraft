@@ -48,25 +48,25 @@ public class PlayerInput {
                             if (ke.getKeyCode() == KeyEvent.VK_W && RenderSinglePlayerMap.player.getLocation().y > 75) {
                                 wPressed = true;
                                 RenderSinglePlayerMap.player.setLocation(RenderSinglePlayerMap.player.getLocation().x,RenderSinglePlayerMap.player.getLocation().y-movespeed);
-                                //RenderSinglePlayerMap.player.setIcon(new ImageIcon("src/main/resources/graphics/player/walk/walk_right.gif"));
+                                RenderSinglePlayerMap.player.setIcon(new ImageIcon("src/main/resources/graphics/player/player_back.png"));
                             }
                             // A
                             else if (ke.getKeyCode() == KeyEvent.VK_A && RenderSinglePlayerMap.player.getLocation().x > 0) {
                                 aPressed = true;
                                 RenderSinglePlayerMap.player.setLocation(RenderSinglePlayerMap.player.getLocation().x-movespeed,RenderSinglePlayerMap.player.getLocation().y);
-                                //RenderSinglePlayerMap.player.setIcon(new ImageIcon("src/main/resources/graphics/player/walk/walk_left.gif"));
+                                RenderSinglePlayerMap.player.setIcon(new ImageIcon("src/main/resources/graphics/player/player_left.png"));
                             }
                             // S
                             else if (ke.getKeyCode() == KeyEvent.VK_S && RenderSinglePlayerMap.player.getLocation().y < RenderSinglePlayerMap.frame.getHeight() - RenderSinglePlayerMap.playerheight * 1.5) { // stops the player object from going out of bounds
                                 sPressed = true;
                                 RenderSinglePlayerMap.player.setLocation(RenderSinglePlayerMap.player.getLocation().x,RenderSinglePlayerMap.player.getLocation().y+movespeed); // sets the position of the player object
-                                //RenderSinglePlayerMap.player.setIcon(new ImageIcon("src/main/resources/graphics/player/walk/walk_right.gif"));
+                                RenderSinglePlayerMap.player.setIcon(new ImageIcon("src/main/resources/graphics/player/player_front.png"));
                             }
                             // D
                             else if (ke.getKeyCode() == KeyEvent.VK_D && RenderSinglePlayerMap.player.getLocation().x < RenderSinglePlayerMap.frame.getWidth() - RenderSinglePlayerMap.playerwidth * 1.5) {
                                 dPressed = true;
                                 RenderSinglePlayerMap.player.setLocation(RenderSinglePlayerMap.player.getLocation().x+movespeed,RenderSinglePlayerMap.player.getLocation().y);
-                                //RenderSinglePlayerMap.player.setIcon(new ImageIcon("src/main/resources/graphics/player/walk/walk_right.gif"));
+                                RenderSinglePlayerMap.player.setIcon(new ImageIcon("src/main/resources/graphics/player/player_right.png"));
                             }
                             else if (ke.getKeyCode() == KeyEvent.VK_ESCAPE) {
                                 RenderSinglePlayerMap.frame.dispose();
@@ -78,18 +78,22 @@ public class PlayerInput {
                             // W
                             if (ke.getKeyCode() == KeyEvent.VK_W) {
                                 wPressed = false;
+                                RenderSinglePlayerMap.player.setIcon(new ImageIcon("src/main/resources/graphics/player/idle/1.png"));
                             }
                             // A
                             else if (ke.getKeyCode() == KeyEvent.VK_A) {
                                 aPressed = false;
+                                RenderSinglePlayerMap.player.setIcon(new ImageIcon("src/main/resources/graphics/player/idle/1.png"));
                             }
                             // S
                             else if (ke.getKeyCode() == KeyEvent.VK_S) {
                                 sPressed = false;
+                                RenderSinglePlayerMap.player.setIcon(new ImageIcon("src/main/resources/graphics/player/idle/1.png"));
                             }
                             // D
                             else if (ke.getKeyCode() == KeyEvent.VK_D) {
                                 dPressed = false;
+                                RenderSinglePlayerMap.player.setIcon(new ImageIcon("src/main/resources/graphics/player/idle/1.png"));
                             }
                             break;
                     }
