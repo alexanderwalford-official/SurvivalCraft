@@ -54,7 +54,7 @@ public class RenderSinglePlayerMap {
         DrawMapObjects();
         frame.add(mainpane);
         frame.setVisible(true);
-        MapTriggers.startchecking();
+        MapTriggers.checkposition();
         update();
         timer();
     }
