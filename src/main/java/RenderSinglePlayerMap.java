@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Random;
 
 
@@ -13,7 +15,7 @@ public class RenderSinglePlayerMap {
     static int playerwidth = 40;
     static int timeleft = 300; // in seconds, states how long the game will last
     static  int playerhealth = 100; // player health
-    static JLabel healthtext = new JLabel("100/100 HP");
+    static JLabel healthtext = new JLabel("");
     static JLabel playerid = new JLabel("PLAYER_ID");
     static JLabel scoretext = new JLabel("0 PTS");
     static JLabel timertext = new JLabel();
@@ -54,6 +56,9 @@ public class RenderSinglePlayerMap {
         DrawMapObjects();
         frame.add(mainpane);
         frame.setVisible(true);
+        // add the mouse listener from the player Attack class
+        PlayerAttack ml = new PlayerAttack();
+        frame.addMouseListener(ml);
         MapTriggers.checkposition();
         update();
         timer();
@@ -68,7 +73,7 @@ public class RenderSinglePlayerMap {
             Thread.sleep(100);
             Thread renewthread = new Thread(() -> {
                 // add methods that will run every 100 milliseconds here
-
+                healthtext.setText(playerhealth + "/100 HP");
                 // player idle animation and checking player triggers
                 try {
                     if (player.getIcon().toString().contains("idle")) {
@@ -219,6 +224,7 @@ public class RenderSinglePlayerMap {
         topGUIbg.setBounds(0,0,frame.getWidth(),70);
         mainpane.add(topGUIbg, JLayeredPane.DRAG_LAYER);
     }
+
 
 }
 
