@@ -7,7 +7,8 @@ public class PlayerAttack implements MouseListener {
     public void mouseClicked(MouseEvent arg0) {
         // here we want to fire the attack animation
         // and deal damage to an enemy if they are within range
-        if (RenderSinglePlayerMap.haspickedupsword) {
+        if (RenderSinglePlayerMap.haspickedupsword && EnemyAI.isinattackrange) {
+            // will fire if the broadsword has been picked up and if the player is within attacking range
             RenderSinglePlayerMap.player.setIcon(new ImageIcon("src/main/resources/graphics/player/attack.gif"));
             RenderSinglePlayerMap.player.setBounds(RenderSinglePlayerMap.player.getLocation().x, RenderSinglePlayerMap.player.getLocation().y, 240, 160);
         }

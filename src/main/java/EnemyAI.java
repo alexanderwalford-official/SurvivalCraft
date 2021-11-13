@@ -9,6 +9,7 @@ public class EnemyAI {
     static int enemycounter = 0;
     static int enemymovespeed = 1; // enemy move speed
     static int[] enemyhealth = {100};
+    static boolean isinattackrange = false;
 
     public static void SpawnEmemies() {
         // this will be called every X seconds
@@ -42,11 +43,13 @@ public class EnemyAI {
 
                 if (xdist == mindist && ydist == mindist) {
                     // enemy can stop moving and should try to attack
+                    isinattackrange = true;
                     TryAttack(enemy);
                 }
                 else {
                     // now move the enemy towards the player
                     // we need to check if the enemy's position is less or more than the player's position
+                    isinattackrange = false;
                     if (enemyposx > playerposx) {
                         // x pos is greater than player pos x
                         if (enemyposy > playerposy) {
