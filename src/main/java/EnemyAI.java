@@ -8,8 +8,11 @@ public class EnemyAI {
     static int mindist = 10; // set this to ensure a minimum distance from the player
     static int enemycounter = 0;
     static int enemymovespeed = 1; // enemy move speed
-    static int[] enemyhealth = {100};
     static boolean isinattackrange = false;
+    // max stored enemies will be 10 for optimization
+    static int[] enemyhealth = new int[10];
+    static JLabel[] enemylist = new JLabel[10];
+    static boolean[] enemyisinbounddata = new boolean[10];
 
     public static void SpawnEmemies() {
         // this will be called every X seconds
@@ -20,14 +23,24 @@ public class EnemyAI {
 
     static void TryAttack(JLabel enemy) {
         // try to attack the player
-        RenderSinglePlayerMap.playerhealth = RenderSinglePlayerMap.playerhealth - 5;
-        if (RenderSinglePlayerMap.playerhealth < 1) {
-            // player has died
-            System.out.println("Player has died!");
+        try {
+            // update every 500 milliseconds
+            Thread.sleep(500);
+            Thread renewthread = new Thread(() -> {
+                RenderSinglePlayerMap.playerhealth = RenderSinglePlayerMap.playerhealth - 5;
+                if (RenderSinglePlayerMap.playerhealth < 1) {
+                    // player has died
+                    System.out.println("Player has died!");
+                }
+            });
+            renewthread.start();
+        }
+        catch (Exception e) {
+            System.out.println(e);
         }
     }
 
-    static void MoveEnemy(JLabel enemy) {
+    static void MoveEnemy(JLabel enemy, int enemyid) {
         try {
             Thread.sleep(50);
             Thread renewthread = new Thread(() -> {
@@ -44,11 +57,13 @@ public class EnemyAI {
                 if (xdist == mindist && ydist == mindist) {
                     // enemy can stop moving and should try to attack
                     isinattackrange = true;
+                    enemyisinbounddata[enemyid] = true;
                     TryAttack(enemy);
                 }
                 else {
                     // now move the enemy towards the player
                     // we need to check if the enemy's position is less or more than the player's position
+                    enemyisinbounddata[enemyid] = false;
                     isinattackrange = false;
                     if (enemyposx > playerposx) {
                         // x pos is greater than player pos x
@@ -76,7 +91,7 @@ public class EnemyAI {
                     }
                 }
 
-                MoveEnemy(enemy);
+                MoveEnemy(enemy, enemyid);
             });
             renewthread.start();
         }
@@ -89,7 +104,10 @@ public class EnemyAI {
         Random rand = new Random();
         try {
             RenderSinglePlayerMap.timertext.setText("Calculating..");
-            Thread.sleep(rand.nextInt(20 * 1000)); // 20 secs max between spawning
+            // bug fix to prevent the game from waiting at the start
+            if (enemycounter != 0) {
+                Thread.sleep(rand.nextInt(20 * 1000)); // 20 secs max between spawning
+            }
             Thread renewthread = new Thread(() -> {
                 System.out.println("Spawning enemy..");
                 int n = rand.nextInt(4);
@@ -98,8 +116,14 @@ public class EnemyAI {
                 JLabel enemy = new JLabel(new ImageIcon("src/main/resources/graphics/enemies/Enemy0" + n + "/attack01.png")); // set the target graphic based on the random value
                 enemy.setBounds(rndx, rndy, 100, 100);
                 pane.add(enemy, JLayeredPane.MODAL_LAYER);
+                // create a new integer to save the current enemy ID before it gets incremented for the next enemy
+                int enemyid = enemycounter;
+                // add the enemy to the enemy list array and enemy health array
+                enemyhealth[enemyid] = 100;
+                enemylist[enemyid] = enemy;
+                // increase the enemy counter
                 enemycounter++;
-                MoveEnemy(enemy);
+                MoveEnemy(enemy, enemyid);
                 SpawnRandom();
             });
             renewthread.start();

@@ -21,6 +21,7 @@ public class RenderSinglePlayerMap {
     static JLabel timertext = new JLabel();
     static int[] broadswordlocation = {0,0};
     static boolean haspickedupsword = false;
+    static int playerscore = 0;
 
     // if you want a texture to appear more frequently, just add it to the array more times
     static String[] texturelist = {"dirt","dirt","grass","grass","grass","grass","grass","grass","grass","grass","grass","stone","stone","stone","stone","stone","cobblestone","water","water","water","leaves","leaves","leaves","log"};
@@ -74,6 +75,7 @@ public class RenderSinglePlayerMap {
             Thread renewthread = new Thread(() -> {
                 // add methods that will run every 100 milliseconds here
                 healthtext.setText(playerhealth + "/100 HP");
+                scoretext.setText(playerscore + " PTS");
                 // player idle animation and checking player triggers
                 try {
                     if (player.getIcon().toString().contains("idle")) {
