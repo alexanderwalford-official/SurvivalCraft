@@ -5,7 +5,7 @@ public class MapTriggers {
     // class responsible for detecting if the player is over a specific X and Y value
     // will then fire the relevant function dependent on position
 
-    static int itempickuprange = 50;
+    static int itempickuprange = 80;
     static JLabel notif = new JLabel(new ImageIcon("src/main/resources/graphics/GUI/broadswordnotif.png"));
 
     public static void checkposition() {
@@ -25,7 +25,7 @@ public class MapTriggers {
                     // draw the broad sword pickup notification
                     notif.setBounds(RenderSinglePlayerMap.frame.getWidth() / 2,RenderSinglePlayerMap.frame.getHeight() / 2,400,200);
                     RenderSinglePlayerMap.mainpane.add(notif, JLayeredPane.DRAG_LAYER);
-                    System.out.println("Player has picked up the broadsword! Waves can now start.");
+                    System.out.println("SYS: Player has picked up the broadsword! Waves can now start.");
                     try {
                         Thread.sleep(3000);
                         // hide the broadsword notification after 3 seconds

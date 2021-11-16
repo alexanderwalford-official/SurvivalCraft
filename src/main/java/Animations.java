@@ -23,4 +23,26 @@ public class Animations {
         }
     }
 
+    public static void playerattack() {
+        try {
+            // update the textures
+            player.setBounds(player.getLocation().x, player.getLocation().y,240,160);
+            player.setIcon(new ImageIcon("src/main/resources/graphics/player/attack/0.png"));
+            Thread.sleep(200);
+            player.setIcon(new ImageIcon("src/main/resources/graphics/player/attack/1.png"));
+            Thread.sleep(200);
+            player.setIcon(new ImageIcon("src/main/resources/graphics/player/attack/2.png"));
+            Thread.sleep(200);
+            player.setIcon(new ImageIcon("src/main/resources/graphics/player/attack/3.png"));
+            Thread.sleep(200);
+            player.setIcon(new ImageIcon("src/main/resources/graphics/player/attack/4.png"));
+            Thread.sleep(200);
+            player.setIcon(new ImageIcon("src/main/resources/graphics/player/attack/0.png"));
+            Thread.sleep(200);
+
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
 }

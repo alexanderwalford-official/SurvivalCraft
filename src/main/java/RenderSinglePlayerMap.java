@@ -74,8 +74,10 @@ public class RenderSinglePlayerMap {
             Thread.sleep(100);
             Thread renewthread = new Thread(() -> {
                 // add methods that will run every 100 milliseconds here
-                healthtext.setText(playerhealth + "/100 HP");
-                scoretext.setText(playerscore + " PTS");
+                if (playerhealth > 0) {
+                    healthtext.setText(playerhealth + "/100 HP");
+                    scoretext.setText(playerscore + " PTS");
+                }
                 // player idle animation and checking player triggers
                 try {
                     if (player.getIcon().toString().contains("idle")) {
@@ -106,10 +108,14 @@ public class RenderSinglePlayerMap {
                         Thread.sleep(1000);
                         timeleft--;
                         timertext.setText(timeleft + " sec");
-                        if (timeleft == 290) {
+                        if (timeleft == 295) {
                             // we can start to randomly spawn enemies
-                            // after the 10 seconds peace period
+                            // after the 5 seconds peace period
                             EnemyAI.SpawnEmemies();
+                        }
+                        else if (timeleft == 0) {
+                            // game over
+                            GameEnd.main(playerscore, "time");
                         }
                     } catch (InterruptedException e) {
                         e.printStackTrace();
@@ -144,7 +150,7 @@ public class RenderSinglePlayerMap {
             GenerateClouds();
         }
         else {
-            System.out.println("Cloud generation completed!");
+            System.out.println("SYS: Cloud generation completed.");
         }
     }
 
@@ -158,7 +164,7 @@ public class RenderSinglePlayerMap {
 
         if (x == maxcolumns) {
             // end the generation
-            System.out.println("Map generated!");
+            System.out.println("SYS: Map generation complete.");
         }
         else {
             // keep generating
@@ -183,8 +189,6 @@ public class RenderSinglePlayerMap {
         broadswordlocation = new int[]{player.getLocation().x - rand.nextInt(frame.getWidth()) / 10, player.getLocation().y - rand.nextInt(frame.getHeight()) / 10};
         broadword.setBounds(broadswordlocation[0],broadswordlocation[1],20,80);
         mainpane.add(broadword, JLayeredPane.MODAL_LAYER);
-        System.out.println("broadsword spawned at X:" + broadword.getLocation().x + " Y:" + broadword.getLocation().y);
-        System.out.println("Items spawned!");
     }
 
     static void DrawGUI(String splayerid) {
@@ -215,11 +219,10 @@ public class RenderSinglePlayerMap {
         timertext.setFont(new Font("Srif", Font.PLAIN, 18));
         mainpane.add(timertext, JLayeredPane.DRAG_LAYER);
 
-        JLabel healthtext = new JLabel("100/100 HP");
+        JLabel healthtext = new JLabel("");
         healthtext.setBounds(20,10,200,50);
         healthtext.setForeground(Color.white);
         healthtext.setFont(new Font("Srif", Font.PLAIN, 18));
-        healthtext.setText(playerhealth + "/100 HP");
         mainpane.add(healthtext, JLayeredPane.DRAG_LAYER);
 
         JLabel topGUIbg = new JLabel(new ImageIcon("src/main/resources/graphics/GUI/topbarGUI.png")); // top bar

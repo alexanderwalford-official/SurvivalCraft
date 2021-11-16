@@ -5,9 +5,10 @@ public class EnemyAI {
 
     static JLabel player = RenderSinglePlayerMap.player;
     static JLayeredPane pane = RenderSinglePlayerMap.mainpane;
-    static int mindist = 10; // set this to ensure a minimum distance from the player
+    static int mindist = 40; // set this to ensure a minimum distance from the player
     static int enemycounter = 0;
     static int enemymovespeed = 1; // enemy move speed
+    static int enemyattackdamage = 3;
     static boolean isinattackrange = false;
     // max stored enemies will be 10 for optimization
     static int[] enemyhealth = new int[10];
@@ -17,7 +18,7 @@ public class EnemyAI {
     public static void SpawnEmemies() {
         // this will be called every X seconds
         // randomise which enemy will spawn and where
-        System.out.println("Started enemy generator..");
+        System.out.println("SYS: Started enemy generator..");
         SpawnRandom();
     }
 
@@ -27,10 +28,12 @@ public class EnemyAI {
             // update every 500 milliseconds
             Thread.sleep(500);
             Thread renewthread = new Thread(() -> {
-                RenderSinglePlayerMap.playerhealth = RenderSinglePlayerMap.playerhealth - 5;
+                RenderSinglePlayerMap.playerhealth = RenderSinglePlayerMap.playerhealth - enemyattackdamage;
+                RenderSinglePlayerMap.healthtext.setText(RenderSinglePlayerMap.playerhealth + "/100 HP");
                 if (RenderSinglePlayerMap.playerhealth < 1) {
                     // player has died
-                    System.out.println("Player has died!");
+                    GameEnd.main(RenderSinglePlayerMap.playerscore,"enemy");
+                    RenderSinglePlayerMap.frame.setVisible(false);
                 }
             });
             renewthread.start();
@@ -55,6 +58,8 @@ public class EnemyAI {
                 int ydist = playerposy - enemyposy + mindist;
 
                 if (xdist == mindist && ydist == mindist) {
+                    // ISSUES WITH THIS CODE:
+                    // for some reason we're not updating the public objects for the player attack class to access it
                     // enemy can stop moving and should try to attack
                     isinattackrange = true;
                     enemyisinbounddata[enemyid] = true;
@@ -109,7 +114,6 @@ public class EnemyAI {
                 Thread.sleep(rand.nextInt(20 * 1000)); // 20 secs max between spawning
             }
             Thread renewthread = new Thread(() -> {
-                System.out.println("Spawning enemy..");
                 int n = rand.nextInt(4);
                 int rndx = rand.nextInt(RenderSinglePlayerMap.frame.getWidth() + 50);
                 int rndy = rand.nextInt(RenderSinglePlayerMap.frame.getHeight() + 50);

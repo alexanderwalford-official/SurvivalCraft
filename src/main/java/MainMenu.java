@@ -127,14 +127,14 @@ public class MainMenu {
 
     // start a single player session
     public static void startsingleplayer () {
-        System.out.println("Single player button pressed..");
+        System.out.println("SYS: Single player game mode selected.");
         PlayerInput.main();
         RenderSinglePlayerMap.main(usernamebox.getText());
     }
 
     // send the player to the multiplayer screen
     public static void startmultiplayer () {
-        System.out.println("Multi player button pressed..");
+        System.out.println("SYS: Multi player game mode selected.");
         PlayerInput.main();
         MultiplayerJoinScreen.main();
     }
