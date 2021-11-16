@@ -22,6 +22,7 @@ public class RenderSinglePlayerMap {
     static int[] broadswordlocation = {0,0};
     static boolean haspickedupsword = false;
     static int playerscore = 0;
+    static boolean GameOver = false;
 
     // if you want a texture to appear more frequently, just add it to the array more times
     static String[] texturelist = {"dirt","dirt","grass","grass","grass","grass","grass","grass","grass","grass","grass","stone","stone","stone","stone","stone","cobblestone","water","water","water","leaves","leaves","leaves","log"};
@@ -48,6 +49,18 @@ public class RenderSinglePlayerMap {
         frame.setLocationRelativeTo(null); // window center screen
         mainpane.setBounds(0, 0, frame.getWidth(), frame.getHeight());
         mainpane.add(player, JLayeredPane.MODAL_LAYER);
+
+        frame.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                if (JOptionPane.showConfirmDialog(frame,
+                        "Are you sure you want to exit SurvivalCraft?", "Close Game?",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+                    System.exit(0);
+                }
+            }
+        });
 
         // set the height and width of the player to the declared variables and set the player's position to the centre of the map
         player.setBounds(frame.getWidth() / 2 - playerwidth / 2, frame.getHeight() / 2 - playerheight / 2, playerwidth, playerheight);
@@ -92,7 +105,9 @@ public class RenderSinglePlayerMap {
                     }
                 update();
             });
-            renewthread.start();
+            if (!GameOver) {
+                renewthread.start();
+            }
         } catch (Exception e) {
             CrashHandler.main(e.getMessage());
         }
@@ -115,6 +130,7 @@ public class RenderSinglePlayerMap {
                         }
                         else if (timeleft == 0) {
                             // game over
+                            GameOver = true;
                             GameEnd.main(playerscore, "time");
                         }
                     } catch (InterruptedException e) {
@@ -126,7 +142,9 @@ public class RenderSinglePlayerMap {
                 }
                 timer();
             });
-            renewthread.start();
+            if (!GameOver) {
+                renewthread.start();
+            }
         } catch (Exception e) {
             CrashHandler.main(e.getMessage());
         }

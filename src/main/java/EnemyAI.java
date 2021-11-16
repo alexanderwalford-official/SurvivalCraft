@@ -32,11 +32,16 @@ public class EnemyAI {
                 RenderSinglePlayerMap.healthtext.setText(RenderSinglePlayerMap.playerhealth + "/100 HP");
                 if (RenderSinglePlayerMap.playerhealth < 1) {
                     // player has died
+                    RenderSinglePlayerMap.GameOver = true;
                     GameEnd.main(RenderSinglePlayerMap.playerscore,"enemy");
                     RenderSinglePlayerMap.frame.setVisible(false);
+                    RenderSinglePlayerMap.frame.dispose();
+
                 }
             });
-            renewthread.start();
+            if (!RenderSinglePlayerMap.GameOver) {
+                renewthread.start();
+            }
         }
         catch (Exception e) {
             System.out.println(e);
@@ -98,7 +103,9 @@ public class EnemyAI {
 
                 MoveEnemy(enemy, enemyid);
             });
-            renewthread.start();
+            if (!RenderSinglePlayerMap.GameOver) {
+                renewthread.start();
+            }
         }
         catch (Exception e) {
             System.out.println(e);
@@ -130,7 +137,9 @@ public class EnemyAI {
                 MoveEnemy(enemy, enemyid);
                 SpawnRandom();
             });
-            renewthread.start();
+            if (!RenderSinglePlayerMap.GameOver) {
+                renewthread.start();
+            }
         }
         catch (Exception e) {
             System.out.println(e);
