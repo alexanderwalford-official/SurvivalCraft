@@ -11,6 +11,10 @@ public class GameEnd {
         frame.setResizable(false);
         frame.setIconImage(new ImageIcon("src/main/resources/graphics/GUI/gamelogo_square.png").getImage()); // set the window icon
         JLabel title = new JLabel();
+
+        // calculate the player's ranking using the server
+        MultiplayerDataHandler.SendScore("550039706949","SurvivalCraftGlobal",RenderSinglePlayerMap.playerid.getText(),playerscore);
+
         if (reason == "enemy") {
             title.setText("You died! Your score was " + playerscore);
         }
@@ -20,6 +24,8 @@ public class GameEnd {
         title.setFont(new Font("Srif", Font.PLAIN, 18));
         frame.add(title);
         frame.setVisible(true);
+
+        // implement scoreboard API from server
 
         frame.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
