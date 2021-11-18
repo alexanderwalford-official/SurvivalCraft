@@ -1,8 +1,14 @@
+import javax.net.ssl.HttpsURLConnection;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.security.SecureRandom;
+import java.security.cert.X509Certificate;
 import java.util.jar.JarInputStream;
 import java.util.Random;
 
@@ -20,6 +26,8 @@ public class MainMenu {
         frame.setBackground(Color.white);
         frame.setResizable(false);
         frame.setLocationRelativeTo(null); // window center screen
+
+        MultiplayerDataHandler.SetTrustManager();
 
         frame.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override

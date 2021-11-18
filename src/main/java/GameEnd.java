@@ -3,7 +3,7 @@ import java.awt.*;
 
 public class GameEnd {
 
-    static JFrame frame = new JFrame("Game Over!"); // create the JFrame
+    static JFrame frame = new JFrame("Game Ended"); // create the JFrame
 
     public static void main (int playerscore, String reason) {
         frame.setSize(300, 500);
@@ -12,8 +12,13 @@ public class GameEnd {
         frame.setIconImage(new ImageIcon("src/main/resources/graphics/GUI/gamelogo_square.png").getImage()); // set the window icon
         JLabel title = new JLabel();
 
-        // calculate the player's ranking using the server
-        MultiplayerDataHandler.SendScore("550039706949","SurvivalCraftGlobal",RenderSinglePlayerMap.playerid.getText(),playerscore);
+        try {
+            // calculate the player's ranking using the server
+            MultiplayerDataHandler.SendBoardData("550039706949", "SurvivalCraftPublic",RenderSinglePlayerMap.playerid.getText(), Integer.toString(playerscore));
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
 
         if (reason == "enemy") {
             title.setText("You died! Your score was " + playerscore);
@@ -30,10 +35,7 @@ public class GameEnd {
         frame.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent windowEvent) {
-                if (JOptionPane.showConfirmDialog(frame,
-                        "Are you sure you want to exit SurvivalCraft?", "Close Game?",
-                        JOptionPane.YES_NO_OPTION,
-                        JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
+                if (JOptionPane.showConfirmDialog(frame, "Are you sure you want to exit SurvivalCraft?", "Close Game?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE) == JOptionPane.YES_OPTION){
                     System.exit(0);
                 }
             }
