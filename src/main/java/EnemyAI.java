@@ -1,4 +1,6 @@
 import javax.swing.*;
+import java.awt.*;
+import java.net.URL;
 import java.util.Random;
 
 public class EnemyAI {
@@ -6,14 +8,16 @@ public class EnemyAI {
     static JLabel player = RenderSinglePlayerMap.player;
     static JLayeredPane pane = RenderSinglePlayerMap.mainpane;
     static int mindist = 40; // set this to ensure a minimum distance from the player
+    static int maxenemies = 50;
     static int enemycounter = 0;
     static int enemymovespeed = 1; // enemy move speed
     static int enemyattackdamage = 3;
     static boolean isinattackrange = false;
-    // max stored enemies will be 10 for optimization
-    static int[] enemyhealth = new int[10];
-    static JLabel[] enemylist = new JLabel[50];
-    static boolean[] enemyisinbounddata = new boolean[10];
+
+    // max stored enemies will be 50 for optimization
+    static int[] enemyhealth = new int[maxenemies];
+    static JLabel[] enemylist = new JLabel[maxenemies];
+    static boolean[] enemyisinbounddata = new boolean[maxenemies];
 
     public static void SpawnEmemies() {
         // this will be called every X seconds
@@ -124,7 +128,12 @@ public class EnemyAI {
                 int n = rand.nextInt(4);
                 int rndx = rand.nextInt(RenderSinglePlayerMap.frame.getWidth() + 50);
                 int rndy = rand.nextInt(RenderSinglePlayerMap.frame.getHeight() + 50);
-                JLabel enemy = new JLabel(new ImageIcon("src/main/resources/graphics/enemies/Enemy0" + n + "/attack01.png")); // set the target graphic based on the random value
+
+                // set the enemy's texture
+                URL enemyurl = EnemyAI.class.getResource("/graphics/enemies/Enemy0" +  n + "/attack01.png"); // set the target graphic based on the random value
+                Image enemyimage = new ImageIcon(enemyurl).getImage();
+                JLabel enemy = new JLabel(new ImageIcon(enemyimage));
+
                 enemy.setBounds(rndx, rndy, 100, 100);
                 pane.add(enemy, JLayeredPane.MODAL_LAYER);
                 // create a new integer to save the current enemy ID before it gets incremented for the next enemy

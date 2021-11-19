@@ -2,14 +2,17 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.net.URL;
 import java.util.Random;
 
 
 public class RenderSinglePlayerMap {
 
     static JFrame frame = new JFrame("Survival Craft - Singleplayer"); // create the JFrame
-    static JLabel player = new JLabel(new ImageIcon("src/main/resources/graphics/player/player_right.png")); // player object
-    static JLabel broadword = new JLabel(new ImageIcon("src/main/resources/graphics/items/broadsword.png")); // broadsword
+
+    static JLabel player;
+    static JLabel broadword;
+
     static JLayeredPane mainpane = new JLayeredPane();
     static int playerheight = 122;
     static int playerwidth = 40;
@@ -38,13 +41,25 @@ public class RenderSinglePlayerMap {
     static int maxcolumns;
 
     static public void main(String playerid) {
+
+        URL playerright = RenderSinglePlayerMap.class.getResource("/graphics/player/player_right.png");
+        Image playerrightimg = new ImageIcon(playerright).getImage();
+        player = new JLabel(new ImageIcon(playerrightimg)); // player object
+
+        URL broadswordurl = RenderSinglePlayerMap.class.getResource("/graphics/items/broadsword.png");
+        Image broadswordimage = new ImageIcon(broadswordurl).getImage();
+        broadword = new JLabel(new ImageIcon(broadswordimage)); // broadsword
+
+
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setSize(1280, 720); // set the width and height of the window
         frame.setBackground(Color.blue);
         maxrows = frame.getHeight() / 50 * multiplier;
         maxcolumns = frame.getWidth() / 50 * multiplier;
-        frame.setIconImage(new ImageIcon("src/main/resources/graphics/GUI/gamelogo_square.png").getImage()); // set the window icon
+        URL url = RenderSinglePlayerMap.class.getResource("/graphics/GUI/gamelogo_square.png");
+        Image image = new ImageIcon(url).getImage();
+        frame.setIconImage(image);
         frame.setResizable(false);
         frame.setLocationRelativeTo(null); // window center screen
         mainpane.setBounds(0, 0, frame.getWidth(), frame.getHeight());
@@ -93,7 +108,7 @@ public class RenderSinglePlayerMap {
                 }
                 // player idle animation and checking player triggers
                 try {
-                    if (player.getIcon().toString().contains("idle")) {
+                    if (!PlayerInput.isWPressed() && !PlayerInput.isAPressed() && !PlayerInput.isSPressed() && !PlayerInput.isDPressed()) {
                         Thread.sleep(1000);
                         Animations.playeridle();
                     }
@@ -155,9 +170,14 @@ public class RenderSinglePlayerMap {
         if (cloudcounter < maxcloudamount) {
             Random rand = new Random();
             int n = rand.nextInt(5); // random number between 0 and 5
+            if (n == 0) {
+                n++;
+            }
             String texturesel = "cloud" + n;
+            URL cloudurl = RenderSinglePlayerMap.class.getResource("graphics/clouds/" + texturesel + ".png");
+            Image cloudtext = new ImageIcon(cloudurl).getImage();
             JLabel cloud = new JLabel();
-            cloud.setIcon(new ImageIcon("src/main/resources/graphics/clouds/" + texturesel + ".png"));
+            cloud.setIcon(new ImageIcon(cloudtext));
             int cw = rand.nextInt(frame.getWidth());
             int ch = rand.nextInt(frame.getHeight());
             cloud.setBounds(cw,ch,200,100);
@@ -178,7 +198,9 @@ public class RenderSinglePlayerMap {
         int n = rand.nextInt(texturelist.length); // random number between 0 and 7
         String texturesel = texturelist[n];
         // implement the use if the texture weight array
-        JLabel tile = new JLabel(new ImageIcon("src/main/resources/graphics/textures/" + texturesel + ".png")); // set the texture
+        URL urltext = RenderSinglePlayerMap.class.getResource("graphics/textures/" + texturesel + ".png");
+        Image tiletext = new ImageIcon(urltext).getImage();
+        JLabel tile = new JLabel(new ImageIcon(tiletext)); // set the texture
 
         if (x == maxcolumns) {
             // end the generation
@@ -243,7 +265,9 @@ public class RenderSinglePlayerMap {
         healthtext.setFont(new Font("Srif", Font.PLAIN, 18));
         mainpane.add(healthtext, JLayeredPane.DRAG_LAYER);
 
-        JLabel topGUIbg = new JLabel(new ImageIcon("src/main/resources/graphics/GUI/topbarGUI.png")); // top bar
+        URL url = MainMenu.class.getResource("/graphics/GUI/topbarGUI.png");
+        Image image = new ImageIcon(url).getImage();
+        JLabel topGUIbg = new JLabel(new ImageIcon(image));
         topGUIbg.setBounds(0,0,frame.getWidth(),70);
         mainpane.add(topGUIbg, JLayeredPane.DRAG_LAYER);
     }

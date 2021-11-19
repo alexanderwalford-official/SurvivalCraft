@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 import java.util.Arrays;
 
 public class GameEnd {
@@ -15,7 +16,9 @@ public class GameEnd {
         frame.setSize(300, 500);
         frame.setLocationRelativeTo(null); // window center screen
         frame.setResizable(false);
-        frame.setIconImage(new ImageIcon("src/main/resources/graphics/GUI/gamelogo_square.png").getImage()); // set the window icon
+        URL url = RenderSinglePlayerMap.class.getResource("/graphics/GUI/gamelogo_square.png");
+        Image image = new ImageIcon(url).getImage();
+        frame.setIconImage(image);
         JLabel title = new JLabel();
 
 
@@ -69,6 +72,8 @@ public class GameEnd {
             @Override
             public void actionPerformed(ActionEvent e) {
                 MainMenu.main();
+                frame.hide();
+                frame.dispose();
             }
         });
 
@@ -78,6 +83,8 @@ public class GameEnd {
             @Override
             public void actionPerformed(ActionEvent e) {
                 RenderSinglePlayerMap.main(RenderSinglePlayerMap.playerid.getText());
+                frame.hide();
+                frame.dispose();
             }
         });
 

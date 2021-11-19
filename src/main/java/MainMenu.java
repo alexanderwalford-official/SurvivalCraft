@@ -1,3 +1,4 @@
+import javax.imageio.ImageIO;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
@@ -7,12 +8,13 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.IOException;
+import java.io.*;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
+import java.util.Objects;
 import java.util.jar.JarInputStream;
 import java.util.Random;
 import static javax.swing.JOptionPane.showMessageDialog;
@@ -27,7 +29,14 @@ public class MainMenu {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setSize(1280, 720); // set the width and height of the window
-        frame.setIconImage(new ImageIcon("src/main/resources/graphics/GUI/gamelogo_square.png").getImage()); // set the window icon
+        try {
+            URL url = MainMenu.class.getResource("/graphics/GUI/gamelogo_square.png");
+            Image image = new ImageIcon(url).getImage();
+            frame.setIconImage(image);
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
         frame.setBackground(Color.white);
         frame.setResizable(false);
         frame.setLocationRelativeTo(null); // window center screen
@@ -70,9 +79,16 @@ public class MainMenu {
         panel3.setBackground(Color.white);
 
         // game logo
-        JLabel gamelogo = new JLabel(new ImageIcon("src/main/resources/graphics/GUI/gamelogo-long.png"));
-        gamelogo.setPreferredSize(new Dimension(1280,150));
-        panel3.add(gamelogo, JLayeredPane.POPUP_LAYER);
+        try {
+            URL url = MainMenu.class.getResource("/graphics/GUI/gamelogo-long.png");
+            Image image = new ImageIcon(url).getImage();
+            JLabel gamelogo = new JLabel(new ImageIcon(image));
+            gamelogo.setPreferredSize(new Dimension(1280,150));
+            panel3.add(gamelogo, JLayeredPane.POPUP_LAYER);
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
 
         // buttons
         JButton singleplayer = new JButton("Singleplayer");
@@ -157,9 +173,9 @@ public class MainMenu {
         frame.setVisible(true); // show the window
 
         // start the background music from the AudioEngine
-        AudioEngine audio = new AudioEngine();
-        audio.HandleBackgroundMusic();
+        AudioEngine.main("04");
     }
+
 
     // start a single player session
     public static void startsingleplayer () {

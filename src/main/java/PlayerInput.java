@@ -1,7 +1,7 @@
 import javax.swing.*;
-import java.awt.KeyEventDispatcher;
-import java.awt.KeyboardFocusManager;
+import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.net.URL;
 
 public class PlayerInput {
 
@@ -48,25 +48,33 @@ public class PlayerInput {
                             if (ke.getKeyCode() == KeyEvent.VK_W && RenderSinglePlayerMap.player.getLocation().y > 75) {
                                 wPressed = true;
                                 RenderSinglePlayerMap.player.setLocation(RenderSinglePlayerMap.player.getLocation().x,RenderSinglePlayerMap.player.getLocation().y-movespeed);
-                                RenderSinglePlayerMap.player.setIcon(new ImageIcon("src/main/resources/graphics/player/player_back.png"));
+                                URL url = PlayerInput.class.getResource("/graphics/player/player_back.png");
+                                Image image = new ImageIcon(url).getImage();
+                                RenderSinglePlayerMap.player.setIcon(new ImageIcon(image));
                             }
                             // A
                             else if (ke.getKeyCode() == KeyEvent.VK_A && RenderSinglePlayerMap.player.getLocation().x > 0) {
                                 aPressed = true;
                                 RenderSinglePlayerMap.player.setLocation(RenderSinglePlayerMap.player.getLocation().x-movespeed,RenderSinglePlayerMap.player.getLocation().y);
-                                RenderSinglePlayerMap.player.setIcon(new ImageIcon("src/main/resources/graphics/player/player_left.png"));
+                                URL url = PlayerInput.class.getResource("/graphics/player/player_left.png");
+                                Image image = new ImageIcon(url).getImage();
+                                RenderSinglePlayerMap.player.setIcon(new ImageIcon(image));
                             }
                             // S
                             else if (ke.getKeyCode() == KeyEvent.VK_S && RenderSinglePlayerMap.player.getLocation().y < RenderSinglePlayerMap.frame.getHeight() - RenderSinglePlayerMap.playerheight * 1.5) { // stops the player object from going out of bounds
                                 sPressed = true;
                                 RenderSinglePlayerMap.player.setLocation(RenderSinglePlayerMap.player.getLocation().x,RenderSinglePlayerMap.player.getLocation().y+movespeed); // sets the position of the player object
-                                RenderSinglePlayerMap.player.setIcon(new ImageIcon("src/main/resources/graphics/player/player_front.png"));
+                                URL url = PlayerInput.class.getResource("/graphics/player/player_front.png");
+                                Image image = new ImageIcon(url).getImage();
+                                RenderSinglePlayerMap.player.setIcon(new ImageIcon(image));
                             }
                             // D
                             else if (ke.getKeyCode() == KeyEvent.VK_D && RenderSinglePlayerMap.player.getLocation().x < RenderSinglePlayerMap.frame.getWidth() - RenderSinglePlayerMap.playerwidth * 1.5) {
                                 dPressed = true;
                                 RenderSinglePlayerMap.player.setLocation(RenderSinglePlayerMap.player.getLocation().x+movespeed,RenderSinglePlayerMap.player.getLocation().y);
-                                RenderSinglePlayerMap.player.setIcon(new ImageIcon("src/main/resources/graphics/player/player_right.png"));
+                                URL url = PlayerInput.class.getResource("/graphics/player/player_right.png");
+                                Image image = new ImageIcon(url).getImage();
+                                RenderSinglePlayerMap.player.setIcon(new ImageIcon(image));
                             }
                             else if (ke.getKeyCode() == KeyEvent.VK_ESCAPE) {
                                 RenderSinglePlayerMap.frame.dispose();
@@ -78,22 +86,30 @@ public class PlayerInput {
                             // W
                             if (ke.getKeyCode() == KeyEvent.VK_W) {
                                 wPressed = false;
-                                RenderSinglePlayerMap.player.setIcon(new ImageIcon("src/main/resources/graphics/player/idle/1.png"));
+                                URL url = PlayerInput.class.getResource("/graphics/player/idle/1.png");
+                                Image image = new ImageIcon(url).getImage();
+                                RenderSinglePlayerMap.player.setIcon(new ImageIcon(image));
                             }
                             // A
                             else if (ke.getKeyCode() == KeyEvent.VK_A) {
                                 aPressed = false;
-                                RenderSinglePlayerMap.player.setIcon(new ImageIcon("src/main/resources/graphics/player/idle/1.png"));
+                                URL url = PlayerInput.class.getResource("/graphics/player/idle/1.png");
+                                Image image = new ImageIcon(url).getImage();
+                                RenderSinglePlayerMap.player.setIcon(new ImageIcon(image));
                             }
                             // S
                             else if (ke.getKeyCode() == KeyEvent.VK_S) {
                                 sPressed = false;
-                                RenderSinglePlayerMap.player.setIcon(new ImageIcon("src/main/resources/graphics/player/idle/1.png"));
+                                URL url = PlayerInput.class.getResource("/graphics/player/idle/1.png");
+                                Image image = new ImageIcon(url).getImage();
+                                RenderSinglePlayerMap.player.setIcon(new ImageIcon(image));
                             }
                             // D
                             else if (ke.getKeyCode() == KeyEvent.VK_D) {
                                 dPressed = false;
-                                RenderSinglePlayerMap.player.setIcon(new ImageIcon("src/main/resources/graphics/player/idle/1.png"));
+                                URL url = PlayerInput.class.getResource("/graphics/player/idle/1.png");
+                                Image image = new ImageIcon(url).getImage();
+                                RenderSinglePlayerMap.player.setIcon(new ImageIcon(image));
                             }
                             break;
                     }

@@ -1,4 +1,6 @@
 import javax.swing.*;
+import java.awt.*;
+import java.net.URL;
 import java.util.Arrays;
 
 public class MapTriggers {
@@ -6,9 +8,13 @@ public class MapTriggers {
     // will then fire the relevant function dependent on position
 
     static int itempickuprange = 80;
-    static JLabel notif = new JLabel(new ImageIcon("src/main/resources/graphics/GUI/broadswordnotif.png"));
+
+    static JLabel notif;
 
     public static void checkposition() {
+        URL notifimgurl = RenderSinglePlayerMap.class.getResource("/graphics/GUI/broadswordnotif.png");
+        Image notifimg = new ImageIcon(notifimgurl).getImage();
+        notif =  new JLabel(new ImageIcon(notifimg));
         // broadsword detection
         try {
             Thread.sleep(50);
