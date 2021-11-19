@@ -23,9 +23,9 @@ public class MainMenu {
 
     // Alexander Walford 2021
     static JTextArea usernamebox = new JTextArea("RandomPlayer");
+    static JFrame frame = new JFrame("Survival Craft"); // create the JFrame
 
-    static void main () {
-        JFrame frame = new JFrame("Survival Craft"); // create the JFrame
+    static void main (String args) {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setSize(1280, 720); // set the width and height of the window
@@ -172,16 +172,32 @@ public class MainMenu {
 
         frame.setVisible(true); // show the window
 
-        // start the background music from the AudioEngine
-        AudioEngine.main("04");
+        if (args == "singleplayer") {
+            startsingleplayer();
+        }
+        else if (args == "back") {
+            // do nothing
+        }
+        else {
+            // start the background music from the AudioEngine
+            AudioEngine.main("04");
+        }
     }
 
 
     // start a single player session
     public static void startsingleplayer () {
         System.out.println("SYS: Single player game mode selected.");
-        PlayerInput.main();
-        RenderSinglePlayerMap.main(usernamebox.getText());
+        // handle input box text
+        if (usernamebox.getText().length() > 20) {
+            Random rand = new Random();
+            int n = rand.nextInt(999);
+            usernamebox.setText("RandomPlayer" + n);
+            showMessageDialog(null, "SYS: Your name was too long so we generated a new one for you.");
+        }
+        RenderSinglePlayerMap gameinst = new RenderSinglePlayerMap();
+        gameinst.main(usernamebox.getText());
+        frame.dispose();
     }
 
     // send the player to the multiplayer screen

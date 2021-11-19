@@ -69,7 +69,7 @@ public class PlayerInput {
                                 RenderSinglePlayerMap.player.setIcon(new ImageIcon(image));
                             }
                             // D
-                            else if (ke.getKeyCode() == KeyEvent.VK_D && RenderSinglePlayerMap.player.getLocation().x < RenderSinglePlayerMap.frame.getWidth() - RenderSinglePlayerMap.playerwidth * 1.5) {
+                            else if (ke.getKeyCode() == KeyEvent.VK_D && RenderSinglePlayerMap.player.getLocation().x < RenderSinglePlayerMap.frame.getWidth() - RenderSinglePlayerMap.playerwidth * 2) {
                                 dPressed = true;
                                 RenderSinglePlayerMap.player.setLocation(RenderSinglePlayerMap.player.getLocation().x+movespeed,RenderSinglePlayerMap.player.getLocation().y);
                                 URL url = PlayerInput.class.getResource("/graphics/player/player_right.png");
@@ -78,7 +78,7 @@ public class PlayerInput {
                             }
                             else if (ke.getKeyCode() == KeyEvent.VK_ESCAPE) {
                                 RenderSinglePlayerMap.frame.dispose();
-                                MainMenu.main();
+                                MainMenu.main("back");
                             }
                             break;
 

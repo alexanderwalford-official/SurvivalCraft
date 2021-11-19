@@ -26,10 +26,15 @@ public class Animations {
         try {
             // update the attacking textures
             player.setBounds(player.getLocation().x, player.getLocation().y,240,160);
-            for (int i : idleframes) {
-                URL url = Animations.class.getResource("/graphics/player/attack/" + i + ".png");
-                Image image = new ImageIcon(url).getImage();
-                player.setIcon(new ImageIcon(image));
+            for (int i : attackframes) {
+                try {
+                    URL url = Animations.class.getResource("/graphics/player/attack/" + i + ".png");
+                    Image image = new ImageIcon(url).getImage();
+                    player.setIcon(new ImageIcon(image));
+                }
+                catch (Exception e) {
+                    System.out.println(e);
+                }
                 Thread.sleep(200);
             }
 

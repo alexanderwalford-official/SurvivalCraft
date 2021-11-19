@@ -42,6 +42,7 @@ public class RenderSinglePlayerMap {
 
     static public void main(String playerid) {
 
+        PlayerInput.main();
         URL playerright = RenderSinglePlayerMap.class.getResource("/graphics/player/player_right.png");
         Image playerrightimg = new ImageIcon(playerright).getImage();
         player = new JLabel(new ImageIcon(playerrightimg)); // player object

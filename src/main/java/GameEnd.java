@@ -71,8 +71,9 @@ public class GameEnd {
         menubutton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                MainMenu.main();
-                frame.hide();
+                MainMenu newmenu = new MainMenu();
+                newmenu.main("back");
+                RenderSinglePlayerMap.frame.dispose();
                 frame.dispose();
             }
         });
@@ -82,8 +83,9 @@ public class GameEnd {
         playagain.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                RenderSinglePlayerMap.main(RenderSinglePlayerMap.playerid.getText());
-                frame.hide();
+                MainMenu newmenu = new MainMenu();
+                newmenu.main("singleplayer");
+                RenderSinglePlayerMap.frame.dispose();
                 frame.dispose();
             }
         });

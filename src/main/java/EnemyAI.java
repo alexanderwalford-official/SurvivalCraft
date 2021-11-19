@@ -22,7 +22,7 @@ public class EnemyAI {
     public static void SpawnEmemies() {
         // this will be called every X seconds
         // randomise which enemy will spawn and where
-        System.out.println("SYS: Started enemy generator..");
+        System.out.println("SYS: Started enemy generator.");
         SpawnRandom();
     }
 
@@ -130,21 +130,29 @@ public class EnemyAI {
                 int rndy = rand.nextInt(RenderSinglePlayerMap.frame.getHeight() + 50);
 
                 // set the enemy's texture
-                URL enemyurl = EnemyAI.class.getResource("/graphics/enemies/Enemy0" +  n + "/attack01.png"); // set the target graphic based on the random value
-                Image enemyimage = new ImageIcon(enemyurl).getImage();
-                JLabel enemy = new JLabel(new ImageIcon(enemyimage));
-
-                enemy.setBounds(rndx, rndy, 100, 100);
-                pane.add(enemy, JLayeredPane.MODAL_LAYER);
-                // create a new integer to save the current enemy ID before it gets incremented for the next enemy
-                int enemyid = enemycounter;
-                // add the enemy to the enemy list array and enemy health array
-                enemyhealth[enemyid] = 100;
-                enemylist[enemyid] = enemy;
-                // increase the enemy counter
-                enemycounter++;
-                MoveEnemy(enemy, enemyid);
-                SpawnRandom();
+                try {
+                    URL enemyurl = EnemyAI.class.getResource("/graphics/enemies/Enemy0" + n + "/attack01.png"); // set the target graphic based on the random value
+                    assert enemyurl != null;
+                    Image enemyimage = new ImageIcon(enemyurl).getImage();
+                    JLabel enemy = new JLabel(new ImageIcon(enemyimage));
+                    enemy.setBounds(rndx, rndy, 100, 100);
+                    pane.add(enemy, JLayeredPane.MODAL_LAYER);
+                    // create a new integer to save the current enemy ID before it gets incremented for the next enemy
+                    int enemyid = enemycounter;
+                    // add the enemy to the enemy list array and enemy health array
+                    enemyhealth[enemyid] = 100;
+                    enemylist[enemyid] = enemy;
+                    // increase the enemy counter
+                    enemycounter++;
+                    MoveEnemy(enemy, enemyid);
+                    SpawnRandom();
+                }
+                catch (Exception e) {
+                    System.out.println("SYS: Known error AI.1 has been detected.");
+                }
+                finally {
+                    SpawnRandom();
+                }
             });
             if (!RenderSinglePlayerMap.GameOver) {
                 renewthread.start();

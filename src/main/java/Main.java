@@ -9,6 +9,6 @@ public class Main {
         System.out.println("========================");
         System.out.println("");
         System.out.println("SYS: Calling main game class..");
-        MainMenu.main();
+        MainMenu.main("");
     }
 }
