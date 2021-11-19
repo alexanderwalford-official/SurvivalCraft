@@ -12,7 +12,7 @@ public class EnemyAI {
     static boolean isinattackrange = false;
     // max stored enemies will be 10 for optimization
     static int[] enemyhealth = new int[10];
-    static JLabel[] enemylist = new JLabel[10];
+    static JLabel[] enemylist = new JLabel[50];
     static boolean[] enemyisinbounddata = new boolean[10];
 
     public static void SpawnEmemies() {

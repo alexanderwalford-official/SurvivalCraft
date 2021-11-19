@@ -2,15 +2,10 @@ import javax.net.ssl.*;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.*;
-import java.net.http.HttpClient;
-import java.net.http.HttpRequest;
 import java.nio.charset.StandardCharsets;
 import java.security.*;
 import java.security.cert.X509Certificate;
-import java.util.Dictionary;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.StringJoiner;
+import java.util.Scanner;
 
 public class MultiplayerDataHandler {
 
@@ -46,7 +41,7 @@ public class MultiplayerDataHandler {
     }
 
     // Setting player data.
-    public static void SetPlayer (String apikey, String username, String lobby, String position, String rotation) throws IOException {
+    public static String SetPlayer (String apikey, String username, String lobby, String position, String rotation) throws IOException {
         URL url = new URL("https://renovatesoftware.com/API/setplayerdata/");
 
         HttpURLConnection http = (HttpURLConnection)url.openConnection();
@@ -63,10 +58,11 @@ public class MultiplayerDataHandler {
 
         System.out.println(http.getResponseCode() + " " + http.getResponseMessage());
         http.disconnect();
+        return http.getResponseMessage();
     }
 
     // Getting player data.
-    public static void GetPlayer (String apikey, String username) throws IOException {
+    public static String GetPlayer (String apikey, String username) throws IOException {
         URL url = new URL("https://renovatesoftware.com/API/getplayerdata/");
 
         HttpURLConnection http = (HttpURLConnection)url.openConnection();
@@ -83,10 +79,11 @@ public class MultiplayerDataHandler {
 
         System.out.println(http.getResponseCode() + " " + http.getResponseMessage());
         http.disconnect();
+        return http.getResponseMessage();
     }
 
     // Getting the player list.
-    public static void GetPlayerList (String apikey, String lobby) throws IOException {
+    public static String GetPlayerList (String apikey, String lobby) throws IOException {
         URL url = new URL("https://renovatesoftware.com/API/getlobby/");
 
         HttpURLConnection http = (HttpURLConnection)url.openConnection();
@@ -103,10 +100,11 @@ public class MultiplayerDataHandler {
 
         System.out.println(http.getResponseCode() + " " + http.getResponseMessage());
         http.disconnect();
+        return http.getResponseMessage();
     }
 
     // Setting Player Score On Scoreboard & Returning Their Rating
-    public static void SendBoardData(String apikey, String boardid, String playerid, String score) throws IOException {
+    public static String SendBoardData(String apikey, String boardid, String playerid, String score) throws IOException {
         URL url = new URL("https://renovatesoftware.com/API/setscore/");
 
         HttpURLConnection http = (HttpURLConnection)url.openConnection();
@@ -121,28 +119,27 @@ public class MultiplayerDataHandler {
         OutputStream stream = http.getOutputStream();
         stream.write(out);
 
-        System.out.println(http.getResponseCode() + " " + http.getResponseMessage());
+        System.out.println(http.getResponseCode() + ": " + http.getResponseMessage());
         http.disconnect();
+        return http.getResponseMessage();
     }
 
     // Getting All Players & Their Score From The Scoreboard
-    public static void GetBoardData (String apikey, String boardid) throws IOException {
-        URL url = new URL("https://renovatesoftware.com/API/getscore/");
-
-        HttpURLConnection http = (HttpURLConnection)url.openConnection();
-        http.setRequestMethod("POST");
-        http.setDoOutput(true);
-        http.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-
-        String data = "apikey="+apikey+"&boardid="+ boardid;
-
-        byte[] out = data.getBytes(StandardCharsets.UTF_8);
-
-        OutputStream stream = http.getOutputStream();
-        stream.write(out);
-
-        System.out.println(http.getResponseCode() + " " + http.getResponseMessage());
-        http.disconnect();
+    public static String GetBoardDataGET (String apikey, String boardid) throws IOException {
+        //Instantiating the URL class
+        URL url = new URL("https://renovatesoftware.com/API/GET/getscore/"+apikey+"/"+boardid);
+        //Retrieving the contents of the specified page
+        Scanner sc = new Scanner(url.openStream());
+        //Instantiating the StringBuffer class to hold the result
+        StringBuffer sb = new StringBuffer();
+        while(sc.hasNext()) {
+            sb.append(sc.next());
+        }
+        //Retrieving the String from the String Buffer object
+        String result = sb.toString();
+        //Removing the HTML tags
+        result = result.replaceAll("<[^>]*>", "");
+        return result;
     }
 
 }

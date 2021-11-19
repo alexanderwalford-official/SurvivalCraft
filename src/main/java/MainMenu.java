@@ -7,10 +7,15 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.security.SecureRandom;
 import java.security.cert.X509Certificate;
 import java.util.jar.JarInputStream;
 import java.util.Random;
+import static javax.swing.JOptionPane.showMessageDialog;
 
 public class MainMenu {
 
@@ -40,6 +45,17 @@ public class MainMenu {
                 }
             }
         });
+
+        // checks if client is connected to the server
+        boolean isconnected = netIsAvailable();
+        if (!isconnected) {
+            System.out.println("SYS: Could not connect to server. Please try again later.");
+            showMessageDialog(null, "SYS: Could not connect to server. Please try again later.");
+            System.exit(1);
+        }
+        else {
+            System.out.println("SYS: Server is connected.");
+        }
 
         // Adding elements to the JFrame
 
@@ -157,6 +173,20 @@ public class MainMenu {
         System.out.println("SYS: Multi player game mode selected.");
         PlayerInput.main();
         MultiplayerJoinScreen.main();
+    }
+
+    public static boolean netIsAvailable() {
+        try {
+            final URL url = new URL("https://renovatesoftware.com/");
+            final URLConnection conn = url.openConnection();
+            conn.connect();
+            conn.getInputStream().close();
+            return true;
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            return false;
+        }
     }
 
 }
