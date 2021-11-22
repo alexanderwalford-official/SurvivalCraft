@@ -144,6 +144,30 @@ public class RenderSinglePlayerMap {
                             // after the 5 seconds peace period
                             EnemyAI.SpawnEmemies();
                         }
+                        else if (timeleft == 250) {
+                            // decrease the spawn time for enemies
+                            EnemyAI.minspawntime = EnemyAI.maxspawntime - 2;
+                        }
+                        else if (timeleft == 200) {
+                            // decrease the spawn time for enemies
+                            EnemyAI.minspawntime = EnemyAI.minspawntime - 1;
+                        }
+                        else if (timeleft == 150) {
+                            // decrease the spawn time for enemies
+                            EnemyAI.minspawntime = EnemyAI.maxspawntime - 2;
+                        }
+                        else  if (timeleft == 100) {
+                            // decrease the spawn time for enemies
+                            EnemyAI.minspawntime = EnemyAI.minspawntime - 1;
+                        }
+                        else if (timeleft == 50) {
+                            // decrease the spawn time for enemies
+                            EnemyAI.minspawntime = EnemyAI.maxspawntime - 2;
+                        }
+                        else if (timeleft == 25) {
+                            // decrease the spawn time for enemies
+                            EnemyAI.minspawntime = EnemyAI.minspawntime - 1;
+                        }
                         else if (timeleft == 0) {
                             // game over
                             GameOver = true;

@@ -37,6 +37,7 @@ public class Animations {
                 }
                 Thread.sleep(200);
             }
+            PlayerAttack.attackcooldown = false;
 
         } catch (InterruptedException e) {
             e.printStackTrace();

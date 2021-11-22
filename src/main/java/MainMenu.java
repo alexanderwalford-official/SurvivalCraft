@@ -119,7 +119,7 @@ public class MainMenu {
             {
                 // button pressed
                 startmultiplayer();
-                frame.dispose();
+                //frame.dispose();
             }
         });
 
@@ -130,6 +130,16 @@ public class MainMenu {
         leaderboard.setFocusPainted(false);
         leaderboard.setContentAreaFilled(false);
         panel3.add(leaderboard, JLayeredPane.POPUP_LAYER);
+
+        leaderboard.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                // button pressed
+                GameEnd.main(0,"menu");
+                frame.dispose();
+            }
+        });
 
         JButton settings = new JButton("Game Settings");
         settings.setPreferredSize(new Dimension(200, 100));

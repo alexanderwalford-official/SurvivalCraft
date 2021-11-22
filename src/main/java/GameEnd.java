@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class GameEnd {
 
@@ -43,7 +44,9 @@ public class GameEnd {
                 String rawdata1b = rawdata0b.replace("]","");
                 String[] scores = rawdata1b.split(",");
 
-                RenderPlayers(players,scores);
+
+                    RenderPlayers(players, scores, reason);
+
 
             }
             else {
@@ -61,6 +64,10 @@ public class GameEnd {
         else if (reason == "time") {
             title.setText("You survived! Your score was " + playerscore);
         }
+        else if (reason == "menu") {
+            frame.setTitle("Scoreboard");
+            title.setText("Showing the scoreboard..");
+        }
         title.setFont(new Font("Srif", Font.PLAIN, 18));
         playerscorelist.setFont(new Font("Srif", Font.PLAIN, 14));
         playerscorelist.setBounds(0,0,frame.getWidth(),frame.getHeight() - 100);
@@ -71,8 +78,7 @@ public class GameEnd {
         menubutton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                MainMenu newmenu = new MainMenu();
-                newmenu.main("back");
+                MainMenu.main("back");
                 RenderSinglePlayerMap.frame.dispose();
                 frame.dispose();
             }
@@ -121,14 +127,14 @@ public class GameEnd {
 
     }
 
-    static void RenderPlayers(String[] players, String[] scores) {
+    static void RenderPlayers(String[] players, String[] scores, String reason) {
         if (counter != players.length) {
-            if (players[counter].replace("'", "").equals(RenderSinglePlayerMap.playerid.getText())) {
-                playerscorelist.setText(playerscorelist.getText() + "<p style=\"color: red\">You scored " + scores[counter] + "</p>");
+            if (players[counter].replace("'", "").equals(RenderSinglePlayerMap.playerid.getText()) && !Objects.equals(reason, "menu")) {
+                    playerscorelist.setText(playerscorelist.getText() + "<p style=\"color: red\">You scored " + scores[counter] + "</p>");
             }
             playerscorelist.setText(playerscorelist.getText() + "<p>" + players[counter] + " scored " + scores[counter] + "</p>");
             counter++;
-            RenderPlayers(players, scores);
+            RenderPlayers(players, scores, reason);
         }
     }
 

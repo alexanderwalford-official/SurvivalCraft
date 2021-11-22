@@ -5,6 +5,7 @@ import java.awt.event.MouseListener;
 public class PlayerAttack implements MouseListener {
 
     static int rangecounter = 0;
+    static boolean attackcooldown = false;
 
     @Override
     public void mouseClicked(MouseEvent arg0) {
@@ -13,13 +14,17 @@ public class PlayerAttack implements MouseListener {
         if (RenderSinglePlayerMap.haspickedupsword) {
             // will fire if the broadsword has been picked up and if the player is within attacking range
             try {
-                Thread renewthread = new Thread(() -> {
-                    // animate the player attacking
-                    Animations.playerattack();
-                    // now check which enemies are within range
-                    attackenemiesinrange();
-                });
-                renewthread.start();
+                // attack if cool down is not true
+                if (!attackcooldown) {
+                    Thread renewthread = new Thread(() -> {
+                        attackcooldown = true;
+                        // animate the player attacking
+                        Animations.playerattack();
+                        // now check which enemies are within range
+                        attackenemiesinrange();
+                    });
+                    renewthread.start();
+                }
             }
             catch (Exception e) {
                 System.out.println(e);
