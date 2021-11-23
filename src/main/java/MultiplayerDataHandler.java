@@ -62,6 +62,7 @@ public class MultiplayerDataHandler {
     }
 
     // Getting player data.
+    // change to GET method
     public static String GetPlayer (String apikey, String username) throws IOException {
         URL url = new URL("https://renovatesoftware.com/API/getplayerdata/");
 

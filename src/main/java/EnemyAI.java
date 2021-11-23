@@ -9,7 +9,7 @@ public class EnemyAI {
     static JLabel player = RenderSinglePlayerMap.player;
     static JLayeredPane pane = RenderSinglePlayerMap.mainpane;
     static int mindist = 40; // set this to ensure a minimum distance from the player
-    static int maxenemies = 1000; // set this to cap the number of enemies
+    static int maxenemies = 850; // set this to cap the number of enemies
     static int enemycounter = 0;
     static int enemymovespeed = 2; // enemy move speed
     static int enemyattackdamage = 3;
@@ -17,7 +17,6 @@ public class EnemyAI {
     static int minspawntime = 3; // minimum enemy spawn delay in seconds
     static int maxspawntime = 8; // maximum enemy spawn delay in seconds
 
-    // max stored enemies will be 50 for optimization
     static int[] enemyhealth = new int[maxenemies];
     static JLabel[] enemylist = new JLabel[maxenemies];
     static boolean[] enemyisinbounddata = new boolean[maxenemies];
