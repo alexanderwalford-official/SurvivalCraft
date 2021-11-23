@@ -194,10 +194,7 @@ public class RenderSinglePlayerMap {
         // add cloud movement animation?
         if (cloudcounter < maxcloudamount) {
             Random rand = new Random();
-            int n = rand.nextInt(5); // random number between 0 and 5
-            if (n == 0) {
-                n++;
-            }
+            int n = rand.nextInt(1, 5); // random number between 1 and 5
             String texturesel = "cloud" + n;
             URL cloudurl = RenderSinglePlayerMap.class.getResource("graphics/clouds/" + texturesel + ".png");
             Image cloudtext = new ImageIcon(cloudurl).getImage();
