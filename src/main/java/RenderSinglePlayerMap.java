@@ -4,6 +4,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.net.URL;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 
 public class RenderSinglePlayerMap {
@@ -194,7 +195,7 @@ public class RenderSinglePlayerMap {
         // add cloud movement animation?
         if (cloudcounter < maxcloudamount) {
             Random rand = new Random();
-            int n = rand.nextInt(1, 5); // random number between 1 and 5
+            int n = ThreadLocalRandom.current().nextInt(1, 5 + 1); // random number between 1 and 5
             String texturesel = "cloud" + n;
             URL cloudurl = RenderSinglePlayerMap.class.getResource("graphics/clouds/" + texturesel + ".png");
             Image cloudtext = new ImageIcon(cloudurl).getImage();
