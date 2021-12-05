@@ -6,7 +6,6 @@ import java.net.URL;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
-
 public class RenderSinglePlayerMap {
 
     static JFrame frame = new JFrame("Survival Craft - Singleplayer"); // create the JFrame

@@ -198,6 +198,7 @@ public class MainMenu {
     // start a single player session
     public static void startsingleplayer () {
         System.out.println("SYS: Single player game mode selected.");
+        SystemTests.TestUsername();
         // handle input box text
         if (usernamebox.getText().length() > 20) {
             Random rand = new Random();
