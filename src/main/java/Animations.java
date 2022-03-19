@@ -7,12 +7,32 @@ public class Animations {
     static JLabel player = RenderSinglePlayerMap.player;
     static int[] idleframes = {1,2,3,4,5};
     static int[] attackframes = {0,1,2,3,4};
+    static int[] walkframes = {0, 1};
+    static boolean isidle = false;
 
     public static void playeridle() {
         try {
+            isidle = true;
             // update the player frames
             for (int i : idleframes) {
-                URL url = Animations.class.getResource("/graphics/player/idle/" + i + ".png");
+                if (isidle) {
+                    URL url = Animations.class.getResource("/graphics/player/idle/" + i + ".png");
+                    Image image = new ImageIcon(url).getImage();
+                    player.setIcon(new ImageIcon(image));
+                    Thread.sleep(200);
+                }
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void playerwalk (String direction) {
+        try {
+            // update the player frames
+            for (int i : walkframes) {
+                isidle = false;
+                URL url = Animations.class.getResource("/graphics/player/walk/" + direction +"_" + i + ".png");
                 Image image = new ImageIcon(url).getImage();
                 player.setIcon(new ImageIcon(image));
                 Thread.sleep(200);
@@ -21,6 +41,7 @@ public class Animations {
             e.printStackTrace();
         }
     }
+
 
     public static void playerattack() {
         try {

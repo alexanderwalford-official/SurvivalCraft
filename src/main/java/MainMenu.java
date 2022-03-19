@@ -27,7 +27,6 @@ public class MainMenu {
 
     static void main (String args) {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
         frame.setSize(1280, 720); // set the width and height of the window
         try {
             URL url = MainMenu.class.getResource("/graphics/GUI/gamelogo_square.png");
@@ -145,6 +144,16 @@ public class MainMenu {
         settings.setPreferredSize(new Dimension(200, 100));
         settings.setFocusPainted(false);
         settings.setContentAreaFilled(false);
+
+        settings.addActionListener(new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                // button pressed
+                showMessageDialog(null, "This feature is not yet implemented but will be added soon.");
+            }
+        });
+
         panel3.add(settings, JLayeredPane.POPUP_LAYER);
 
         Random rand = new Random();
@@ -170,7 +179,7 @@ public class MainMenu {
         JPanel panel2 = new JPanel();
         panel2.setBackground(Color.white);
         panel2.setPreferredSize(new Dimension(200, 40));
-        JLabel footertext = new JLabel("Version 0.1 ALPHA by Alexander Walford");
+        JLabel footertext = new JLabel("Version 0.2 ALPHA by Renovate Software LTD");
         footertext.setFont(new Font("Srif", Font.PLAIN, 20));
         panel2.add(footertext);
         frame.add(panel2, BorderLayout.PAGE_END);
@@ -182,10 +191,10 @@ public class MainMenu {
 
         frame.setVisible(true); // show the window
 
-        if (args == "singleplayer") {
+        if (args.equals("singleplayer")) {
             startsingleplayer();
         }
-        else if (args == "back") {
+        else if (args.equals("back")) {
             // do nothing
         }
         else {
@@ -206,16 +215,16 @@ public class MainMenu {
             usernamebox.setText("RandomPlayer" + n);
             showMessageDialog(null, "SYS: Your name was too long so we generated a new one for you.");
         }
-        RenderSinglePlayerMap gameinst = new RenderSinglePlayerMap();
-        gameinst.main(usernamebox.getText());
+        RenderSinglePlayerMap.main(usernamebox.getText());
         frame.dispose();
     }
 
     // send the player to the multiplayer screen
     public static void startmultiplayer () {
         System.out.println("SYS: Multi player game mode selected.");
-        PlayerInput.main();
-        MultiplayerJoinScreen.main();
+        showMessageDialog(null, "This feature is not yet implemented but will be added soon.");
+        //PlayerInput.main();
+        //MultiplayerJoinScreen.main();
     }
 
     public static boolean netIsAvailable() {

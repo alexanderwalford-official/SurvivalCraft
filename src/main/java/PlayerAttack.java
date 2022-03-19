@@ -6,6 +6,7 @@ public class PlayerAttack implements MouseListener {
 
     static int rangecounter = 0;
     static boolean attackcooldown = false;
+    static int PlayerAttackRange = 100;
 
     @Override
     public void mouseClicked(MouseEvent arg0) {
@@ -43,26 +44,51 @@ public class PlayerAttack implements MouseListener {
                 int[] enemieshealth = EnemyAI.enemyhealth;
 
                 if (rangecounter != enemycount) {
-                    // only runs if code has not completed iteration
-                    // temporarily removed range functionality due to a bug
-                    //if (enemyrangelist[rangecounter]) {
-                        // enemy is in attack range, deal damage to it if not dead
-                        if (enemieshealth[rangecounter] > 0) {
-                            // health is greater than 0
-                            enemieshealth[rangecounter] = EnemyAI.enemyhealth[rangecounter] - 50;
-                            RenderSinglePlayerMap.playerscore = RenderSinglePlayerMap.playerscore + 5; // add 5 to score
-                        } else {
-                            // remove the enemy as it has died
-                            // then give the player points
-                            enemylist[rangecounter].setVisible(false); // set the game object to being invisible
-                            RenderSinglePlayerMap.playerscore = RenderSinglePlayerMap.playerscore + 10; // add 10 to score
+                    try {
+                        if (EnemyAI.enemylist[rangecounter].getLocation().x - RenderSinglePlayerMap.player.getLocation().x < PlayerAttackRange && EnemyAI.enemylist[rangecounter].getLocation().y - RenderSinglePlayerMap.player.getLocation().y < PlayerAttackRange) {
+                            // enemy is in attack range, deal damage to it if not dead
+                            if (enemieshealth[rangecounter] > 50) {
+                                // health is greater than 0
+                                enemieshealth[rangecounter] = EnemyAI.enemyhealth[rangecounter] - 50;
+                                RenderSinglePlayerMap.playerscore = RenderSinglePlayerMap.playerscore + 5; // add 5 to score
+                            }
+                            else {
+                                // remove the enemy as it has died
+                                // then give the player points
+                                enemylist[rangecounter].setEnabled(false); // disable the game object
+                                enemylist[rangecounter].setVisible(false); // set the game object to being invisible
+                                enemylist[rangecounter].remove(rangecounter); // remove enemy from enemy list
+                                RenderSinglePlayerMap.playerscore = RenderSinglePlayerMap.playerscore + 10; // add 10 to score
+                            }
                         }
-                    //} else {
-                        //System.out.println("Enemy is not in range");
-                    //}
+                        else if (EnemyAI.enemylist[rangecounter].getLocation().x - RenderSinglePlayerMap.player.getLocation().x > PlayerAttackRange && EnemyAI.enemylist[rangecounter].getLocation().y - RenderSinglePlayerMap.player.getLocation().y > PlayerAttackRange) {
+                            // enemy is in attack range, deal damage to it if not dead
+                            if (enemieshealth[rangecounter] > 50) {
+                                // health is greater than 0
+                                enemieshealth[rangecounter] = EnemyAI.enemyhealth[rangecounter] - 50;
+                                RenderSinglePlayerMap.playerscore = RenderSinglePlayerMap.playerscore + 5; // add 5 to score
+                            }
+                            else {
+                                // remove the enemy as it has died
+                                // then give the player points
+                                enemylist[rangecounter].setEnabled(false); // disable the game object
+                                enemylist[rangecounter].setVisible(false); // set the game object to being invisible
+                                enemylist[rangecounter].remove(rangecounter); // remove enemy from enemy list
+                                RenderSinglePlayerMap.playerscore = RenderSinglePlayerMap.playerscore + 10; // add 10 to score
+                            }
+                        }
+                    }
+                    catch (Exception x) {
+                        // do nothing as we know what this bug is
+                    }
+
                     // iterate again
                     rangecounter++;
                     attackenemiesinrange();
+                }
+                else {
+                    // reset the counter
+                    rangecounter = 0;
                 }
             });
             attackthread.start();

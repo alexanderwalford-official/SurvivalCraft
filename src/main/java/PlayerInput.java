@@ -46,35 +46,36 @@ public class PlayerInput {
                         case KeyEvent.KEY_PRESSED:
                             // W
                             if (ke.getKeyCode() == KeyEvent.VK_W && RenderSinglePlayerMap.player.getLocation().y > 75) {
-                                wPressed = true;
                                 RenderSinglePlayerMap.player.setLocation(RenderSinglePlayerMap.player.getLocation().x,RenderSinglePlayerMap.player.getLocation().y-movespeed);
-                                URL url = PlayerInput.class.getResource("/graphics/player/player_back.png");
-                                Image image = new ImageIcon(url).getImage();
-                                RenderSinglePlayerMap.player.setIcon(new ImageIcon(image));
+                                if (wPressed) {
+                                    Animations.playerwalk("back");
+                                    wPressed = true;
+                                }
                             }
                             // A
-                            else if (ke.getKeyCode() == KeyEvent.VK_A && RenderSinglePlayerMap.player.getLocation().x > 0) {
-                                aPressed = true;
+                            else if (ke.getKeyCode() == KeyEvent.VK_A && RenderSinglePlayerMap.player.getLocation().x > RenderSinglePlayerMap.playerwidth / 2) {
                                 RenderSinglePlayerMap.player.setLocation(RenderSinglePlayerMap.player.getLocation().x-movespeed,RenderSinglePlayerMap.player.getLocation().y);
-                                URL url = PlayerInput.class.getResource("/graphics/player/player_left.png");
-                                Image image = new ImageIcon(url).getImage();
-                                RenderSinglePlayerMap.player.setIcon(new ImageIcon(image));
+                                if (!aPressed) {
+                                    Animations.playerwalk("left");
+                                    aPressed= true;
+                                }
                             }
                             // S
                             else if (ke.getKeyCode() == KeyEvent.VK_S && RenderSinglePlayerMap.player.getLocation().y < RenderSinglePlayerMap.frame.getHeight() - RenderSinglePlayerMap.playerheight * 1.5) { // stops the player object from going out of bounds
-                                sPressed = true;
                                 RenderSinglePlayerMap.player.setLocation(RenderSinglePlayerMap.player.getLocation().x,RenderSinglePlayerMap.player.getLocation().y+movespeed); // sets the position of the player object
-                                URL url = PlayerInput.class.getResource("/graphics/player/player_front.png");
-                                Image image = new ImageIcon(url).getImage();
-                                RenderSinglePlayerMap.player.setIcon(new ImageIcon(image));
+                                if (!sPressed) {
+                                    Animations.playerwalk("front");
+                                    sPressed = true;
+                                }
                             }
                             // D
-                            else if (ke.getKeyCode() == KeyEvent.VK_D && RenderSinglePlayerMap.player.getLocation().x < RenderSinglePlayerMap.frame.getWidth() - RenderSinglePlayerMap.playerwidth * 2) {
-                                dPressed = true;
+                            else if (ke.getKeyCode() == KeyEvent.VK_D && RenderSinglePlayerMap.player.getLocation().x < RenderSinglePlayerMap.frame.getWidth() - RenderSinglePlayerMap.playerwidth * 1.5) {
+
                                 RenderSinglePlayerMap.player.setLocation(RenderSinglePlayerMap.player.getLocation().x+movespeed,RenderSinglePlayerMap.player.getLocation().y);
-                                URL url = PlayerInput.class.getResource("/graphics/player/player_right.png");
-                                Image image = new ImageIcon(url).getImage();
-                                RenderSinglePlayerMap.player.setIcon(new ImageIcon(image));
+                                if (!dPressed) {
+                                    Animations.playerwalk("right");
+                                    dPressed = true;
+                                }
                             }
                             else if (ke.getKeyCode() == KeyEvent.VK_ESCAPE) {
                                 RenderSinglePlayerMap.frame.dispose();

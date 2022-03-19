@@ -8,8 +8,8 @@ public class EnemyAI {
 
     static JLabel player = RenderSinglePlayerMap.player;
     static JLayeredPane pane = RenderSinglePlayerMap.mainpane;
-    static int mindist = 40; // set this to ensure a minimum distance from the player
-    static int maxenemies = 850; // set this to cap the number of enemies
+    static int mindist = 60; // set this to ensure a minimum distance from the player
+    static int maxenemies = 800; // set this to cap the number of enemies
     static int enemycounter = 0;
     static int enemymovespeed = 2; // enemy move speed
     static int enemyattackdamage = 3;
@@ -42,7 +42,6 @@ public class EnemyAI {
                     GameEnd.main(RenderSinglePlayerMap.playerscore,"enemy");
                     RenderSinglePlayerMap.frame.setVisible(false);
                     RenderSinglePlayerMap.frame.dispose();
-
                 }
             });
             if (!RenderSinglePlayerMap.GameOver) {
@@ -65,12 +64,11 @@ public class EnemyAI {
                 int enemyposy = enemy.getLocation().y;
 
                 // now we need to calculate the distance from the player
+
                 int xdist = playerposx - enemyposx + mindist;
                 int ydist = playerposy - enemyposy + mindist;
 
                 if (xdist == mindist && ydist == mindist) {
-                    // ISSUES WITH THIS CODE:
-                    // for some reason we're not updating the public objects for the player attack class to access it
                     // enemy can stop moving and should try to attack
                     isinattackrange = true;
                     enemyisinbounddata[enemyid] = true;

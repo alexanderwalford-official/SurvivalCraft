@@ -29,7 +29,7 @@ public class MapTriggers {
                     RenderSinglePlayerMap.haspickedupsword = true;
                     RenderSinglePlayerMap.broadword.setVisible(false);
                     // draw the broad sword pickup notification
-                    notif.setBounds(RenderSinglePlayerMap.frame.getWidth() / 2,RenderSinglePlayerMap.frame.getHeight() / 2,400,200);
+                    notif.setBounds(RenderSinglePlayerMap.frame.getWidth() / 2 - 400,RenderSinglePlayerMap.frame.getHeight() / 2 - 200,400,200);
                     RenderSinglePlayerMap.mainpane.add(notif, JLayeredPane.DRAG_LAYER);
                     System.out.println("SYS: Player has picked up the broadsword! Waves can now start.");
                     try {

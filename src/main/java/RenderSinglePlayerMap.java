@@ -43,7 +43,7 @@ public class RenderSinglePlayerMap {
     static public void main(String playerid) {
 
         PlayerInput.main();
-        URL playerright = RenderSinglePlayerMap.class.getResource("/graphics/player/player_right.png");
+        URL playerright = RenderSinglePlayerMap.class.getResource("/graphics/player/idle/1.png");
         Image playerrightimg = new ImageIcon(playerright).getImage();
         player = new JLabel(new ImageIcon(playerrightimg)); // player object
 
@@ -51,9 +51,7 @@ public class RenderSinglePlayerMap {
         Image broadswordimage = new ImageIcon(broadswordurl).getImage();
         broadword = new JLabel(new ImageIcon(broadswordimage)); // broadsword
 
-
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
         frame.setSize(1280, 720); // set the width and height of the window
         frame.setBackground(Color.blue);
         maxrows = frame.getHeight() / 50 * multiplier;

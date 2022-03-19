@@ -74,7 +74,8 @@ public class GameEnd {
 
         JButton menubutton = new JButton("Main Menu");
         menubutton.setBounds(0,0,200,100);
-
+        menubutton.setBorderPainted(false);
+        menubutton.setFocusPainted(false);
         menubutton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -86,6 +87,8 @@ public class GameEnd {
 
         JButton playagain = new JButton("Play Again");
         playagain.setBounds(0,0,200,100);
+        playagain.setBorderPainted(false);
+        playagain.setFocusPainted(false);
         playagain.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -98,6 +101,8 @@ public class GameEnd {
 
         JButton quit = new JButton("Quit");
         quit.setBounds(0,0,200,100);
+        quit.setBorderPainted(false);
+        quit.setFocusPainted(false);
         quit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
