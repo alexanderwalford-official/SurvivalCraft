@@ -5,7 +5,7 @@ Audio Design by Greg Davis, Original Graphical Design by Noah Owens & Quincy Smi
 </br>
 </br>
 ### About This Project
-This project was originally developed for a university post-graduate assignment where we had to develop a video game using object oriented programming in Java... and let's just say that I enjoyed it. Therefore, I am trying to work on this project whenever I get some spare time and I welcome anyone with spare time of their own to also work on this project.
+This project was originally developed for a university under-graduate assignment where we had to develop a video game using object oriented programming in Java... and let's just say that I enjoyed it. Therefore, I am trying to work on this project whenever I get some spare time and I welcome anyone with spare time of their own to also work on this project.
 </br>
 </br>
 ### Technical Specifications
