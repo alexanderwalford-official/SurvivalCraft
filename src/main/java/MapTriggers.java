@@ -21,15 +21,43 @@ public class MapTriggers {
             Thread renewthread = new Thread(() -> {
                 // update every 100 milliseconds
                 // check if the player should pick up the sword
-                if (RenderSinglePlayerMap.player.getLocation().x < RenderSinglePlayerMap.broadswordlocation[0] - RenderSinglePlayerMap.broadword.getWidth() * 0.5
-                        && RenderSinglePlayerMap.player.getLocation().x < RenderSinglePlayerMap.broadswordlocation[0] + RenderSinglePlayerMap.broadword.getWidth() * 0.5 &&
-                        RenderSinglePlayerMap.player.getLocation().y < RenderSinglePlayerMap.broadswordlocation[1] - RenderSinglePlayerMap.broadword.getHeight() * 0.5 &&
-                        RenderSinglePlayerMap.player.getLocation().y < RenderSinglePlayerMap.broadswordlocation[1] + RenderSinglePlayerMap.broadword.getHeight() * 0.5 &&
-                        !RenderSinglePlayerMap.haspickedupsword) {
-                    RenderSinglePlayerMap.haspickedupsword = true;
+                
+                // define variables for if statement
+                int playerxloc = RenderSinglePlayerMap.player.getLocation().x;
+                int playeryloc = RenderSinglePlayerMap.player.getLocation().y;
+                int broadswordxloc = RenderSinglePlayerMap.broadswordlocation[0];
+                int broadswordyloc = RenderSinglePlayerMap.broadswordlocation[1];
+                int broadswordwidth = RenderSinglePlayerMap.broadword.getWidth();
+                int broadswordheight = RenderSinglePlayerMap.broadword.getHeight();
+
+                // branchless (experimental)
+                var collisionenter = (playerxloc < broadswordxloc - broadswordwidth * 0.5 && playerxloc < broadswordxloc + broadswordwidth * 0.5
+                    && playeryloc < broadswordyloc - broadswordheight * 0.5 && playeryloc < broadswordyloc + broadswordheight * 0.5
+                    && !RenderSinglePlayerMap.haspickedupsword) ? OnCollisionEnter() : continue;
+                
+                /*
+                // branched method
+                if (playerxloc < broadswordxloc - broadswordwidth * 0.5 && playerxloc < broadswordxloc + broadswordwidth * 0.5
+                    && playeryloc < broadswordyloc - broadswordheight * 0.5 && playeryloc < broadswordyloc + broadswordheight * 0.5
+                    && !RenderSinglePlayerMap.haspickedupsword) {
+                    OnCollisionEnter();
+                }
+                */
+                checkposition();
+            });
+            renewthread.start();
+        }
+        catch (Exception e) {
+            CrashHandler.main(e.getMessage());
+        }
+
+    }
+
+    void OnCollisionEnter () {
+        RenderSinglePlayerMap.haspickedupsword = true;
                     RenderSinglePlayerMap.broadword.setVisible(false);
                     // draw the broad sword pickup notification
-                    notif.setBounds(RenderSinglePlayerMap.frame.getWidth() / 2 - 400,RenderSinglePlayerMap.frame.getHeight() / 2 - 200,400,200);
+                    notif.setBounds(RenderSinglePlayerMap.frame.getWidth() / 2 - 400, RenderSinglePlayerMap.frame.getHeight() / 2 - 200, 400, 200);
                     RenderSinglePlayerMap.mainpane.add(notif, JLayeredPane.DRAG_LAYER);
                     System.out.println("SYS: Player has picked up the broadsword! Waves can now start.");
                     try {
@@ -40,14 +68,5 @@ public class MapTriggers {
                     catch (Exception b) {
                         System.out.println(b);
                     }
-                }
-                checkposition();
-            });
-            renewthread.start();
-        }
-        catch (Exception e) {
-            CrashHandler.main(e.getMessage());
-        }
-
     }
 }
