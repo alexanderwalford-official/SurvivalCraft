@@ -19,7 +19,7 @@ SDK: Java 8, Eliplse Temurin 1.8.0_302, Language Level: SDK default (8 - Lambdas
 - [ ] Add sound effects and extend sound track.
 - [ ] Allow rendering for any resolution using scaling.
 - [ ] Add a functional settings menu.
-- [ ] Improve item trigger box system bounds.
+- [x] Improve item trigger box system bounds.
 - [ ] Add left and right animations to enemies.
 - [ ] Add more items such as healing potions and experience orbs.
 - [ ] Implement mod support using localised backend scripting system.
